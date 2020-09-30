@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin30">
+
+    <TextView
+        android:id="@+id/txt_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_welcome"
+        android:textSize="@dimen/font25"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:background="@drawable/edt_shape"
+        android:drawableEnd="@drawable/ic_profile"
+        android:drawablePadding="@dimen/margin15"
+        android:hint="@string/profile"
+        android:imeOptions="actionNext"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@id/txt_register" />
+
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:background="@drawable/edt_shape"
+        android:drawableEnd="@drawable/ic_email"
+        android:drawablePadding="@dimen/margin15"
+        android:hint="@string/email"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@id/edt_profile" />
+
+    <EditText
+        android:id="@+id/edt_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:background="@drawable/edt_shape"
+        android:drawableEnd="@drawable/ic_phone_black"
+        android:drawablePadding="@dimen/margin15"
+        android:gravity="end"
+        android:hint="@string/phone"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@id/edt_email" />
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin20"
+        android:background="@drawable/edt_shape"
+        android:drawableStart="@drawable/ic_password_eye"
+        android:drawableEnd="@drawable/ic_password"
+        android:drawablePadding="@dimen/margin15"
+        android:gravity="end"
+        android:hint="@string/password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@id/edt_phone" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin40"
+        android:background="@drawable/btn_shape"
+        android:text="@string/txt_register"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintTop_toBottomOf="@id/edt_password" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
