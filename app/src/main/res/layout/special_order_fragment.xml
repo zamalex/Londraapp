@@ -92,11 +92,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctl_sizes"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin25"
             android:layout_marginEnd="@dimen/margin10"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".3"
             app:layout_constraintTop_toBottomOf="@id/rlt_instructions"
             app:layout_constraintWidth_percent=".45">
 
@@ -114,6 +113,7 @@
             <EditText
                 android:id="@+id/edt_binch"
                 android:layout_width="0dp"
+                android:padding="@dimen/margin5"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin10"
                 android:background="@drawable/edt_shape_white"
@@ -136,6 +136,7 @@
             <EditText
                 android:id="@+id/edt_twist"
                 android:layout_width="0dp"
+                android:padding="@dimen/margin5"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin20"
                 android:background="@drawable/edt_shape_white"
@@ -158,6 +159,7 @@
             <EditText
                 android:id="@+id/edt_arm_length"
                 android:layout_width="0dp"
+                android:padding="@dimen/margin5"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin20"
                 android:background="@drawable/edt_shape_white"
@@ -181,6 +183,7 @@
             <EditText
                 android:id="@+id/edt_arm_width"
                 android:layout_width="0dp"
+                android:padding="@dimen/margin5"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin20"
                 android:background="@drawable/edt_shape_white"
@@ -203,9 +206,10 @@
             <EditText
                 android:id="@+id/edt_length"
                 android:layout_width="0dp"
+                android:padding="@dimen/margin5"
+                android:layout_marginTop="@dimen/margin20"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edt_shape_white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/edt_arm_width"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edt_arm_width" />
@@ -228,6 +232,8 @@
             android:id="@+id/edt_design_idea"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:padding="@dimen/margin5"
+            android:gravity="end"
             android:layout_margin="@dimen/margin20"
             android:background="@drawable/edt_shape_white"
             app:layout_constraintHeight_percent=".2"

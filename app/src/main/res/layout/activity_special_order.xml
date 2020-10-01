@@ -6,7 +6,8 @@
     tools:context=".home.ui.specialorder.SpecialOrderActivity">
 
     <fragment
-        android:name="com.gemidroid.londra.home.ui.specialorder.SpecialOrderFragment"
+        android:id="@+id/container"
+        class="com.gemidroid.londra.home.ui.specialorder.SpecialOrderFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/special_order_fragment" />

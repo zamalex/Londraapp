@@ -11,7 +11,9 @@
         android:theme="@style/NoToolBarTheme"
         tools:replace="android:supportsRtl">
 
-        <activity android:name=".home.ui.specialorder.SpecialOrderActivity" />
+        <activity android:name=".home.ui.specialorder.SpecialOrderActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
 
         <activity android:name=".splash.ui.SplashActivity">
             <intent-filter>

@@ -24,6 +24,7 @@ class SpecialOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         img_back.setOnClickListener {
             activity?.onBackPressed()
         }
