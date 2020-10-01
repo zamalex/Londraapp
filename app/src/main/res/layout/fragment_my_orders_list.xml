@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:layout_alignParentStart="true"
-            android:text="الإجمالي: 48 ريال" />
+            android:text="الإجمالي: 120 ريال" />
 
         <TextView
             android:id="@+id/txt_total_pieces"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBlack"
             android:layout_alignParentEnd="true"
-            android:text="عدد القطع المختارة:(2)" />
+            android:text="عدد القطع المختارة:(5)" />
 
     </RelativeLayout>
 
