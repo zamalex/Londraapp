@@ -1,6 +1,7 @@
 package com.gemidroid.londra.home.ui.main
 
 import SliderAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.data.main.SliderItem
+import com.gemidroid.londra.home.ui.specialorder.SpecialOrderActivity
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -28,7 +30,12 @@ class MainFragment : Fragment() {
         slideShow()
 
         rec_orders.apply {
-            adapter = SpecialAdapter{}
+            adapter = SpecialAdapter {}
+        }
+
+        rtl_orders.setOnClickListener {
+            startActivity(Intent(requireActivity(), SpecialOrderActivity::class.java))
+            requireActivity().finish()
         }
     }
 
