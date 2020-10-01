@@ -11,9 +11,9 @@
         android:theme="@style/NoToolBarTheme"
         tools:replace="android:supportsRtl">
 
-        <activity android:name=".home.ui.specialorder.SpecialOrderActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+        <activity
+            android:name=".home.ui.specialorder.SpecialOrderActivity"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".splash.ui.SplashActivity">
             <intent-filter>
@@ -34,11 +34,14 @@
 
         <activity
             android:name=".home.ui.HomeActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:label="@string/title_activity_home" />
+            android:label="@string/title_activity_home"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".home.ui.notifications.NotificationsActivity" />
 
         <activity
-            android:name=".home.ui.notifications.NotificationsActivity" />
+            android:name=".home.ui.payment.PaymentActivity"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 
