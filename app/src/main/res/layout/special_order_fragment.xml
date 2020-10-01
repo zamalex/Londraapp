@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/special_order_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin10"
+            android:text="طلبات خاصة"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin20"
+            android:background="@color/colorGreyDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/special_order_title" />
+
+
+        <EditText
+            android:id="@+id/edt_choose_designer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin20"
+            android:background="@drawable/edt_shape"
+            android:drawableStart="@drawable/arrow_down"
+            android:padding="@dimen/margin15"
+            android:text="اختر المصممة"
+            app:layout_constraintTop_toBottomOf="@id/separator" />
+
+        <RelativeLayout
+            android:id="@+id/rlt_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin10"
+            app:layout_constraintTop_toBottomOf="@id/edt_choose_designer">
+
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="دليل المقاسات"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/txt1"
+                android:text=")جميع المقاسات بالسنتيمتر("
+                android:textColor="@color/colorGreyDark" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/img_mask"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/mask_style"
+            app:layout_constraintBottom_toBottomOf="@id/ctl_sizes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ctl_sizes"
+            app:layout_constraintWidth_percent=".5" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctl_sizes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin25"
+            android:layout_marginEnd="@dimen/margin10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".3"
+            app:layout_constraintTop_toBottomOf="@id/rlt_instructions"
+            app:layout_constraintWidth_percent=".45">
+
+            <TextView
+                android:id="@+id/txt_binch_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="محيط الصدر"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="@id/edt_binch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edt_binch" />
+
+            <EditText
+                android:id="@+id/edt_binch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin10"
+                android:background="@drawable/edt_shape_white"
+                app:layout_constraintEnd_toStartOf="@id/txt_binch_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_twist_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="الوسط"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="@id/edt_twist"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_binch_title"
+                app:layout_constraintTop_toTopOf="@id/edt_twist" />
+
+            <EditText
+                android:id="@+id/edt_twist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/edt_shape_white"
+                app:layout_constraintEnd_toEndOf="@id/edt_binch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_binch" />
+
+            <TextView
+                android:id="@+id/txt_arm_length_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="طول الذراع"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="@id/edt_arm_length"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_twist_title"
+                app:layout_constraintTop_toTopOf="@id/edt_arm_length" />
+
+            <EditText
+                android:id="@+id/edt_arm_length"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/edt_shape_white"
+                app:layout_constraintEnd_toEndOf="@id/edt_twist"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_twist" />
+
+
+            <TextView
+                android:id="@+id/txt_arm_width_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="عرض الذراع"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="@id/edt_arm_width"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_twist_title"
+                app:layout_constraintTop_toTopOf="@id/edt_arm_width" />
+
+            <EditText
+                android:id="@+id/edt_arm_width"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/edt_shape_white"
+                app:layout_constraintEnd_toEndOf="@id/edt_arm_length"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_arm_length" />
+
+            <TextView
+                android:id="@+id/txt_length_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="الطول"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="@id/edt_length"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_arm_width_title"
+                app:layout_constraintTop_toTopOf="@id/edt_length" />
+
+            <EditText
+                android:id="@+id/edt_length"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edt_shape_white"
+                app:layout_constraintEnd_toEndOf="@id/edt_arm_width"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_arm_width" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/txt_design_idea_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin20"
+            android:text="فكرة التصميم"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ctl_sizes" />
+
+        <EditText
+            android:id="@+id/edt_design_idea"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin20"
+            android:background="@drawable/edt_shape_white"
+            app:layout_constraintHeight_percent=".2"
+            app:layout_constraintTop_toBottomOf="@id/txt_design_idea_title" />
+
+
+        <Button
+            android:id="@+id/btn_send_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin20"
+            android:background="@drawable/btn_shape"
+            android:text="إرسال الطلب"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintTop_toBottomOf="@id/edt_design_idea" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

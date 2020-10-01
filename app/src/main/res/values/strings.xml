@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Londra</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="login">تسجيل الدخول</string>
     <string name="register">إنشاء حساب جديد</string>
     <string name="login_welcome">مرحبا بك مجددا</string>
@@ -13,18 +11,22 @@
     <string name="txt_register">إنشاء حساب جديد</string>
     <string name="profile">الاسم</string>
     <string name="phone">الجوال</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txt_email_verification">من فضلك أدخل البريد الالكتروني الخاص بك وسنرسل لك رابط لإعادة تعيين كلمة مرور جديدة</string>
     <string name="txt_send_code">إرسال الرابط</string>
     <string name="txt_change_password_msg">تغيير كلمة المرور للبريد الالكتروني\n%s</string>
     <string name="txt_change_password">تغيير كلمة المرور</string>
     <string name="password_repeat">إعادة كلمة المرور</string>
     <string name="title_activity_home">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_main">الرئيسية</string>
+    <string name="title_my_orders">طلباتي</string>
+    <string name="title_notifications">تنبيهات</string>
     <string name="email_empty">أدخل البريد الإلكتروني</string>
     <string name="enter_password">أدخل كلمة المرور</string>
     <string name="password_mismatch">كلمة المرور غير متطابقة</string>
+    <string name="title_profile">حسابي</string>
+    <string name="title_design">تنسيق المظهر</string>
+    <string name="special_orders">طلبات خاصة</string>
+    <string name="title_my_prev_orders">طلبات سابقة</string>
+    <string name="title_order_color">اللون: s%</string>
+    <string name="title_order_sizes">المقاسات: s%</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.gemidroid.londra.login.ui
+package com.gemidroid.londra.home.ui.myorders
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,17 +7,17 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.gemidroid.londra.R
 
 private val TAB_TITLES = arrayOf(
-    R.string.register,
-    R.string.login
+    R.string.title_my_prev_orders,
+    R.string.title_my_orders
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, behaviour: Int) :
+class OrdersPagerAdapter(private val context: Context, fm: FragmentManager, behaviour: Int) :
     FragmentPagerAdapter(fm, behaviour) {
 
     override fun getItem(position: Int): Fragment {
         return if (position == 0)
-            RegisterFragment()
-        else LoginFragment()
+            MyPrevOrdersListFragment()
+        else MyOrdersListFragment()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

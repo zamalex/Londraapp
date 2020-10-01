@@ -18,4 +18,17 @@
     <dimen name="font20">20sp</dimen>
     <dimen name="margin5">5dp</dimen>
     <dimen name="margin2">2dp</dimen>
+    <dimen name="margin250">250dp</dimen>
+    <dimen name="margin350">350dp</dimen>
+    <dimen name="margin100">100dp</dimen>
+    <dimen name="margin300">300dp</dimen>
+    <dimen name="margin75">75dp</dimen>
+    <dimen name="margin200">200dp</dimen>
+    <dimen name="margin150">150dp</dimen>
+    <dimen name="margin7">7dp</dimen>
+    <dimen name="margin12">12dp</dimen>
+    <dimen name="margin45">45dp</dimen>
+    <dimen name="margin25">25dp</dimen>
+    <dimen name="font18">18sp</dimen>
+    <dimen name="margin1">1dp</dimen>
 </resources>

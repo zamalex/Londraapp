@@ -6,5 +6,8 @@
     <color name="colorAccentWhite">#E8C8CB</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#333333</color>
-    <color name="colorGreyWhite">#F6F6F6</color>
-</resources>
+    <color name="colorGreyDark">#C6C4C4</color>
+    <color name="colorGrey">#E6E6E6</color>
+    <color name="colorOrange">#F7AD44</color>
+    <color name="colorOrangeWhite">#FFEAD1</color>
+    <color name="bgBottomNavigation">#fe485a</color></resources>

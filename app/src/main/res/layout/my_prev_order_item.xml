@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:padding="@dimen/margin10">
+
+    <TextView
+        android:id="@+id/txt_order_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="طلب رقم 1234"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_order_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25/08/2020"
+        android:textColor="@color/colorGreyDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ctl_order_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        app:layout_constraintTop_toBottomOf="@id/txt_order_no">
+
+        <TextView
+            android:id="@+id/txt_order_status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="حالة الطلب: "
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تم شحن الطلب"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toStartOf="@+id/txt_order_status_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txt_order_pieces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="عدد القطع: 4"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ctl_order_status" />
+
+    <TextView
+        android:id="@+id/txt_order_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="إجمالي المبلغ: 120 ريال"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_order_pieces" />
+
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin20"
+        android:background="@color/colorGreyDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/txt_order_price"
+        app:layout_constraintStart_toStartOf="@id/txt_order_date"
+        app:layout_constraintTop_toBottomOf="@id/txt_order_price" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
