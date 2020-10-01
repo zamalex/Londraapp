@@ -34,7 +34,11 @@
 
         <activity
             android:name=".home.ui.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_home" />
+
+        <activity
+            android:name=".home.ui.notifications.NotificationsActivity" />
 
     </application>
 

@@ -31,4 +31,6 @@
     <dimen name="margin25">25dp</dimen>
     <dimen name="font18">18sp</dimen>
     <dimen name="margin1">1dp</dimen>
+    <dimen name="font8">8sp</dimen>
+    <dimen name="margin35">35dp</dimen>
 </resources>

@@ -1,10 +1,12 @@
 package com.gemidroid.londra.home.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gemidroid.londra.R
+import com.gemidroid.londra.home.ui.notifications.NotificationsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -21,6 +23,13 @@ class HomeActivity : AppCompatActivity() {
             txt_main_title.text = it.title
             true
         }
+
         navView.setupWithNavController(navController)
+
+
+
+        img_notifications.setOnClickListener {
+            startActivity(Intent(this, NotificationsActivity::class.java))
+        }
     }
 }
