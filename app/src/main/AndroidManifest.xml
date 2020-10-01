@@ -12,7 +12,7 @@
         tools:replace="android:supportsRtl">
 
         <activity android:name=".home.ui.specialorder.SpecialOrderActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             />
 
         <activity android:name=".splash.ui.SplashActivity">

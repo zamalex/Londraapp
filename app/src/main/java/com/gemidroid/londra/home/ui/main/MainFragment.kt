@@ -35,7 +35,6 @@ class MainFragment : Fragment() {
 
         rtl_orders.setOnClickListener {
             startActivity(Intent(requireActivity(), SpecialOrderActivity::class.java))
-            requireActivity().finish()
         }
     }
 
