@@ -81,15 +81,15 @@
                 app:layout_constraintTop_toBottomOf="@id/txt_piece_price" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
                 android:id="@+id/rec_color_names"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="horizontal"
-                app:reverseLayout="true"
-                tools:listitem="@layout/color_name_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin5"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/txt_piece_colors"
-                android:layout_height="wrap_content"/>
+                app:reverseLayout="true"
+                tools:listitem="@layout/color_name_item" />
 
 
             <TextView
@@ -108,8 +108,8 @@
                 android:id="@+id/txt_desc_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="وصف التصميم"
                 android:layout_marginTop="@dimen/margin15"
+                android:text="وصف التصميم"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/font20"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,10 +119,10 @@
                 android:id="@+id/txt_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
                 android:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق"
                 android:textColor="@color/colorGreyBlack"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/margin5"
                 app:layout_constraintTop_toBottomOf="@id/txt_desc_title" />
 
             <TextView
@@ -197,71 +197,72 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ctl_sizes"
-                android:background="@color/colorGrey"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/margin20"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart" >
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@color/colorGrey"
+                android:padding="@dimen/margin5"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart">
 
-            <TextView
-                android:id="@+id/txt_binch_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="الصدر: "
-                android:textColor="@color/colorGreyBlack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/txt_binch_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="الصدر: "
+                    android:textColor="@color/colorGreyBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_binch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="36.75إنش-98.5سم"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintEnd_toStartOf="@id/txt_binch_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/txt_binch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="36.75إنش-98.5سم"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toStartOf="@id/txt_binch_title"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_twist_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="الخصر: "
-                android:textColor="@color/colorGreyBlack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
+                <TextView
+                    android:id="@+id/txt_twist_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="الخصر: "
+                    android:textColor="@color/colorGreyBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
 
-            <TextView
-                android:id="@+id/txt_twist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="36.75إنش-98.5سم"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintEnd_toStartOf="@id/txt_twist_title"
-                app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
+                <TextView
+                    android:id="@+id/txt_twist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="36.75إنش-98.5سم"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toStartOf="@id/txt_twist_title"
+                    app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
 
-            <TextView
-                android:id="@+id/txt_leg_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="الورك: "
-                android:textColor="@color/colorGreyBlack"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
+                <TextView
+                    android:id="@+id/txt_leg_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="الورك: "
+                    android:textColor="@color/colorGreyBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
 
-            <TextView
-                android:id="@+id/txt_leg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
-                android:text="36.75إنش-98.5سم"
-                android:textColor="@color/colorBlack"
-                app:layout_constraintEnd_toStartOf="@id/txt_leg_title"
-                app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
+                <TextView
+                    android:id="@+id/txt_leg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin20"
+                    android:text="36.75إنش-98.5سم"
+                    android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toStartOf="@id/txt_leg_title"
+                    app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -270,8 +271,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin30"
-                android:text="إضافات"
                 android:padding="@dimen/margin5"
+                android:text="إضافات"
                 android:textColor="@color/colorGreyBlack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ctl_sizes" />
@@ -289,10 +290,12 @@
                     android:id="@+id/rd1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:button="@null"
                     android:checked="true"
-                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawableEnd="@drawable/addes_states"
                     android:drawablePadding="@dimen/margin10"
+                    android:drawableTint="@color/colorAccent"
                     android:text="إضافة 1" />
 
                 <RadioButton
@@ -300,10 +303,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
+                    android:background="@null"
                     android:button="@null"
-                    android:checked="true"
-                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawableEnd="@drawable/addes_states"
                     android:drawablePadding="@dimen/margin10"
+                    android:drawableTint="@color/colorAccent"
                     android:text="إضافة 2" />
 
                 <RadioButton
@@ -311,10 +315,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin10"
+                    android:background="@null"
                     android:button="@null"
-                    android:checked="true"
-                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawableEnd="@drawable/addes_states"
                     android:drawablePadding="@dimen/margin10"
+                    android:drawableTint="@color/colorAccent"
                     android:text="إضافة 3" />
 
 
@@ -383,13 +388,13 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_clients_ratings"
-                android:layout_marginTop="@dimen/margin10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:reverseLayout="true"
+                android:layout_marginTop="@dimen/margin10"
                 android:nestedScrollingEnabled="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/txt_client_rating_title"
+                app:reverseLayout="true"
                 tools:listitem="@layout/client_rating_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

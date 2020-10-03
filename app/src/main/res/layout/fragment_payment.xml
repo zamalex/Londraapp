@@ -161,7 +161,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin10"
-                android:background="@drawable/edt_shape_grey"
+                android:background="@drawable/edt_shape_white"
                 android:padding="@dimen/margin10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_code"
@@ -253,7 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin10"
-                android:background="@drawable/edt_shape_grey"
+                android:background="@drawable/edt_shape_white"
                 android:padding="@dimen/margin20"
                 app:layout_constraintTop_toBottomOf="@id/txt_notes_title" />
 
