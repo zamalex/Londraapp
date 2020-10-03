@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gemidroid.londra.R
@@ -16,6 +17,7 @@ class PieceFragment : Fragment() {
 
     private val TAG = "PieceFragment"
     lateinit var adapterNames: ColorNamesAdapter
+    var isFavourite = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,17 @@ class PieceFragment : Fragment() {
 
         img_back.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+        img_add_to_fav.setOnClickListener {
+            it as ImageView
+            isFavourite = if (!isFavourite) {
+                it.setImageResource(R.drawable.ic_favorite)
+                true
+            } else {
+                it.setImageResource(R.drawable.ic_un_favorite)
+                false
+            }
         }
 
         rec_pieces_designs.apply {
