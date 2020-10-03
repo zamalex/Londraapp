@@ -39,7 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/special_order_title" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_notifications"
         android:layout_width="match_parent"

@@ -1,16 +1,22 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents">
-        <item name="colorPrimary">@color/colorBlack</item>
-
+        <item name="fontFamily">@font/tajawal</item>
     </style>
 
     <style name="NoToolBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
-      <item name="android:statusBarColor">@color/colorWhite</item>
+        <item name="android:statusBarColor">@color/colorWhite</item>
+        <item name="fontFamily">@font/tajawal</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="customRatingBar">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:progressDrawable">@drawable/rating_shapes</item>
+    </style>
 
 </resources>

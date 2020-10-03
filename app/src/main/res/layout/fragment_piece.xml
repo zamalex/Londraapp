@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/margin20"
+            android:src="@drawable/ic_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_pieces_designs"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/pieces_design_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctl_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin10"
+            app:layout_constraintTop_toBottomOf="@id/rec_pieces_designs">
+
+            <TextView
+                android:id="@+id/txt_brand_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اسم البراند"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_share_piece"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin20"
+                android:src="@drawable/ic_share"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_piece_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="اسم القطعة"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font20"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_brand_name" />
+
+            <TextView
+                android:id="@+id/txt_piece_colors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="الألوان"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_piece_price" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/rec_color_names"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:reverseLayout="true"
+                tools:listitem="@layout/color_name_item"
+                android:layout_marginTop="@dimen/margin5"
+                app:layout_constraintTop_toBottomOf="@id/txt_piece_colors"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/txt_piece_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="24 ريال"
+                android:textColor="@color/colorGreyBlack"
+                android:textSize="@dimen/font18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_piece_name" />
+
+
+            <TextView
+                android:id="@+id/txt_desc_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="وصف التصميم"
+                android:layout_marginTop="@dimen/margin15"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rec_color_names" />
+
+            <TextView
+                android:id="@+id/txt_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق"
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin5"
+                app:layout_constraintTop_toBottomOf="@id/txt_desc_title" />
+
+            <TextView
+                android:id="@+id/txt_material_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="الخامة: "
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_desc" />
+
+            <TextView
+                android:id="@+id/txt_material"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:layout_marginEnd="@dimen/margin20"
+                android:text="نوع الخامة"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toStartOf="@id/txt_material_title"
+                app:layout_constraintTop_toBottomOf="@id/txt_desc" />
+
+            <TextView
+                android:id="@+id/txt_factory_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="المصنع: "
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_material_title" />
+
+            <TextView
+                android:id="@+id/txt_factory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:layout_marginEnd="@dimen/margin20"
+                android:text="اسم المصنع"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toStartOf="@id/txt_factory_title"
+                app:layout_constraintTop_toBottomOf="@id/txt_material_title" />
+
+            <Button
+                android:id="@+id/btn_add_to_cart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/btn_shape"
+                android:drawablePadding="@dimen/margin10"
+                android:drawableTint="@color/colorWhite"
+                android:paddingStart="@dimen/margin50"
+                android:paddingEnd="@dimen/margin50"
+                android:text="أضف إلي حقيبة التسوق"
+                android:textColor="@color/colorWhite"
+                app:drawableEndCompat="@drawable/ic_shopping_bag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_factory"
+                app:layout_constraintWidth_percent=".8" />
+
+            <ImageView
+                android:id="@+id/img_add_to_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin20"
+                android:src="@drawable/ic_un_favorite"
+                app:layout_constraintBottom_toBottomOf="@id/btn_add_to_cart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_factory"
+                app:layout_constraintTop_toTopOf="@id/btn_add_to_cart" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ctl_sizes"
+                android:background="@color/colorGrey"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin20"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart" >
+
+            <TextView
+                android:id="@+id/txt_binch_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="الصدر: "
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_binch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="36.75إنش-98.5سم"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toStartOf="@id/txt_binch_title"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_twist_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="الخصر: "
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
+
+            <TextView
+                android:id="@+id/txt_twist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="36.75إنش-98.5سم"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toStartOf="@id/txt_twist_title"
+                app:layout_constraintTop_toBottomOf="@id/txt_binch_title" />
+
+            <TextView
+                android:id="@+id/txt_leg_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="الورك: "
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
+
+            <TextView
+                android:id="@+id/txt_leg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin20"
+                android:text="36.75إنش-98.5سم"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintEnd_toStartOf="@id/txt_leg_title"
+                app:layout_constraintTop_toBottomOf="@id/txt_twist_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_additions_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin30"
+                android:text="إضافات"
+                android:padding="@dimen/margin5"
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ctl_sizes" />
+
+            <RadioGroup
+                android:id="@+id/rd_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_additions_title">
+
+                <RadioButton
+                    android:id="@+id/rd1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawablePadding="@dimen/margin10"
+                    android:text="إضافة 1" />
+
+                <RadioButton
+                    android:id="@+id/rd2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawablePadding="@dimen/margin10"
+                    android:text="إضافة 2" />
+
+                <RadioButton
+                    android:id="@+id/rd3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableEnd="@drawable/ic_dot_accent"
+                    android:drawablePadding="@dimen/margin10"
+                    android:text="إضافة 3" />
+
+
+            </RadioGroup>
+
+
+            <RelativeLayout
+                android:id="@+id/rlt_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@color/colorGrey"
+                android:padding="@dimen/margin10"
+                app:layout_constraintTop_toBottomOf="@id/rd_group">
+
+                <ImageView
+                    android:id="@+id/img_delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_delivery" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/margin10"
+                    android:layout_toStartOf="@id/img_delivery"
+                    android:text="خدمة التوصيل خلال (7-14) أيام عمل"
+                    android:textColor="@color/colorBlack" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_notes_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="ملاحظات/تعليقات"
+                android:textColor="@color/colorGreyBlack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rlt_delivery" />
+
+            <EditText
+                android:id="@+id/edt_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:background="@drawable/edt_shape_white"
+                android:padding="@dimen/margin10"
+                app:layout_constraintTop_toBottomOf="@id/txt_notes_title" />
+
+
+            <TextView
+                android:id="@+id/txt_client_rating_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="تقييم العملاء"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/font18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_notes" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_clients_ratings"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:reverseLayout="true"
+                android:nestedScrollingEnabled="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/txt_client_rating_title"
+                tools:listitem="@layout/client_rating_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

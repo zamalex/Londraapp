@@ -3,6 +3,7 @@ package com.gemidroid.londra.home.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gemidroid.londra.R
@@ -19,9 +20,8 @@ class HomeActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_home)
 
-        navView.setOnNavigationItemSelectedListener {
-            txt_main_title.text = it.title
-            true
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            txt_main_title.text = destination.label
         }
 
         navView.setupWithNavController(navController)

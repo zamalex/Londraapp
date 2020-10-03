@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.data.main.SliderItem
+import com.gemidroid.londra.home.ui.department.DepartmentActivity
 import com.gemidroid.londra.home.ui.specialorder.SpecialOrderActivity
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
@@ -19,7 +20,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
@@ -30,7 +31,11 @@ class MainFragment : Fragment() {
         slideShow()
 
         rec_orders.apply {
-            adapter = SpecialAdapter {}
+            adapter = DepartmentsAdapter {
+                val intent = Intent(requireActivity(), DepartmentActivity::class.java)
+                intent.putExtra("departmentId", it)
+                startActivity(intent)
+            }
         }
 
         rtl_orders.setOnClickListener {

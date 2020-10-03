@@ -71,7 +71,7 @@
         android:layout_height="0dp"
         android:gravity="start|top"
         android:layout_margin="@dimen/margin20"
-        android:background="@drawable/edt_shape_white"
+        android:background="@drawable/edt_shape_grey"
         android:padding="@dimen/margin15"
         app:layout_constraintEnd_toEndOf="@id/edt_hair_color"
         app:layout_constraintHeight_percent=".3"

@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 
-class SpecialAdapter(onItemClick: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DepartmentsAdapter(private val onItemClick: (Int) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -14,6 +15,12 @@ class SpecialAdapter(onItemClick: () -> Unit) : RecyclerView.Adapter<RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        holder.itemView.apply {
+            setOnClickListener {
+                onItemClick.invoke(position)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

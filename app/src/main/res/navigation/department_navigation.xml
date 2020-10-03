@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/department_navigation.xml"
+    app:startDestination="@id/departmentFragment">
+
+    <fragment
+        android:id="@+id/departmentFragment"
+        android:name="com.gemidroid.londra.home.ui.department.DepartmentFragment"
+        android:label="DepartmentFragment"
+        tools:layout="@layout/fragment_department">
+        <action
+            android:id="@+id/action_departmentFragment_to_pieceFragment"
+            app:destination="@id/pieceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pieceFragment"
+        android:name="com.gemidroid.londra.home.ui.department.PieceFragment"
+        android:label="PieceFragment"
+        tools:layout="@layout/fragment_piece" />
+
+
+</navigation>

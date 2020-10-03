@@ -4,5 +4,6 @@
     <style name="NoToolBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="fontFamily">@font/tajawal</item>
     </style>
 </resources>

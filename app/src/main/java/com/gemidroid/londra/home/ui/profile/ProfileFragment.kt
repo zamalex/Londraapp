@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gemidroid.londra.R
+import com.gemidroid.londra.home.ui.address.UpdateAddressActivity
 import com.gemidroid.londra.login.ui.LoginActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
@@ -19,7 +20,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -28,7 +29,11 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rec_my_addresses.apply {
-            adapter = MyAddressesAdapter()
+            adapter = MyAddressesAdapter {
+                val intent = Intent(requireActivity(), UpdateAddressActivity::class.java)
+                intent.putExtra("addressId", it)
+                startActivity(intent)
+            }
         }
 
         rec_my_favourites.apply {
