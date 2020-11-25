@@ -18,6 +18,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
+
     }
 }
 
@@ -30,4 +32,7 @@ ext{
     RECYCLE_VIEW_VERSION = '1.1.0'
     CIRCLE_IMAGEVIEW_VERSION = '3.1.0'
     GLIDE_VERSION = '4.11.0'
+    ADAPTER_RXJAVA3_VERSION = '2.9.0'
+    LOGGING_INTERCEPTOR_VERSION = '4.8.0'
+    RXJAVA3_VERSION = '3.0.0'
 }

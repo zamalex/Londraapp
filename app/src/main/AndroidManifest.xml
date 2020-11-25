@@ -4,6 +4,7 @@
     package="com.gemidroid.londra">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -11,6 +12,8 @@
         android:icon="@mipmap/launcher"
         android:label="@string/app_name"
         android:supportsRtl="false"
+        android:networkSecurityConfig="@xml/network_config"
+
         android:theme="@style/NoToolBarTheme"
         tools:replace="android:supportsRtl">
 
