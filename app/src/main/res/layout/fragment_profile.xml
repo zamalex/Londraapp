@@ -61,20 +61,32 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edt_shape"
                 android:gravity="end"
+                android:hint="الاسم الاول"
                 android:padding="@dimen/margin15"
-                android:text="Jane Doe"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edt_profile_name_last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edt_shape"
+                android:gravity="end"
+                android:hint="الاسم الاخير"
+                android:padding="@dimen/margin15"
+                app:layout_constraintTop_toBottomOf="@+id/edt_profile_name"
+                tools:layout_editor_absoluteX="-16dp" />
 
             <EditText
                 android:id="@+id/edt_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin10"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/edt_shape"
                 android:gravity="end"
+                android:hint="@string/email"
                 android:padding="@dimen/margin15"
-                android:text="jane.doe@gmail.com"
-                app:layout_constraintTop_toBottomOf="@id/edt_profile_name" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_profile_name_last" />
 
             <EditText
                 android:id="@+id/edt_profile_phone"
@@ -84,7 +96,7 @@
                 android:background="@drawable/edt_shape"
                 android:gravity="end"
                 android:padding="@dimen/margin15"
-                android:text="+966 666 6666"
+                android:hint="@string/phone"
                 app:layout_constraintTop_toBottomOf="@id/edt_profile_email" />
 
             <EditText
@@ -94,9 +106,10 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/edt_shape"
                 android:gravity="end"
+
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="@dimen/margin15"
-                android:text="*********************"
                 app:layout_constraintTop_toBottomOf="@id/edt_profile_phone" />
 
             <Button

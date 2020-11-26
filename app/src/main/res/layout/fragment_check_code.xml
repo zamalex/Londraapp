@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin30"
+    tools:context=".forgotpassword.ui.CheckCodeFragment">
+
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/txt_enter_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pass_code"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:background="@drawable/edt_shape"
+        android:drawablePadding="@dimen/margin15"
+        android:hint="كود التحقق"
+        android:inputType="number"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@id/txt_enter_code" />
+
+    <Button
+        android:id="@+id/btn_send_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin40"
+        android:background="@drawable/btn_shape"
+        android:text="ارسال"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintTop_toBottomOf="@id/edt_code" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

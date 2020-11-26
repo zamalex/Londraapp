@@ -2,6 +2,7 @@ package com.gemidroid.londra.login.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
 import creativitysol.com.planstech.api.Retrofit
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -21,6 +22,6 @@ class LoginViewModel : ViewModel() {
 
     }
 
-    val getLoginResponse = MutableLiveData<ResponseBody>()
+    val getLoginResponse = MutableLiveData<LoginRes>()
     val getError = MutableLiveData<Throwable>()
 }

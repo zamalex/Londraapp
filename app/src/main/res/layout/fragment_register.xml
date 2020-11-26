@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/margin30">
@@ -24,17 +29,32 @@
         android:background="@drawable/edt_shape"
         android:drawableEnd="@drawable/ic_profile"
         android:drawablePadding="@dimen/margin15"
-        android:hint="@string/profile"
+        android:hint="الاسم الاول"
         android:inputType="text"
         android:imeOptions="actionNext"
         android:padding="@dimen/margin15"
         app:layout_constraintTop_toBottomOf="@id/txt_register" />
 
     <EditText
+        android:id="@+id/edt_profile_last"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edt_shape"
+        android:drawableEnd="@drawable/ic_profile"
+        android:drawablePadding="@dimen/margin15"
+        android:hint="الاسم الاخير"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:padding="@dimen/margin15"
+        app:layout_constraintTop_toBottomOf="@+id/edt_profile"
+        tools:layout_editor_absoluteX="30dp" />
+
+    <EditText
         android:id="@+id/edt_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin30"
+        android:layout_marginTop="30dp"
         android:background="@drawable/edt_shape"
         android:drawableEnd="@drawable/ic_email"
         android:drawablePadding="@dimen/margin15"
@@ -42,7 +62,8 @@
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:padding="@dimen/margin15"
-        app:layout_constraintTop_toBottomOf="@id/edt_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_profile_last"
+        tools:layout_editor_absoluteX="30dp" />
 
     <EditText
         android:id="@+id/edt_phone"
@@ -86,3 +107,4 @@
         app:layout_constraintTop_toBottomOf="@id/edt_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

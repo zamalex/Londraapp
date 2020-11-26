@@ -2,6 +2,7 @@ package com.gemidroid.londra.login.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,10 @@ import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.login.ui.viewmodel.LoginViewModel
 import com.gemidroid.londra.utils.Validator
 import com.google.gson.JsonObject
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_login.*
+import retrofit2.HttpException
+import java.net.UnknownHostException
 
 class LoginFragment : Fragment() {
     val loginViewModel: LoginViewModel by activityViewModels()
@@ -36,7 +40,6 @@ class LoginFragment : Fragment() {
             startActivity(Intent(activity, ForgetPasswordActivity::class.java))
         }
 
-        Loading.initLoading(requireActivity())
 
         btn_login.setOnClickListener {
             if (!Validator.isValidEmail(edt_email.text)) {
@@ -49,9 +52,8 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // startActivity(Intent(requireActivity(), HomeActivity::class.java))
-            // requireActivity().finish()
-            Loading.show()
+
+            (activity as LoginActivity).loading!!.show()
             loginViewModel.login(JsonObject().apply {
                 addProperty("email", edt_email.text.toString())
                 addProperty("password", edt_password.text.toString())
@@ -64,18 +66,32 @@ class LoginFragment : Fragment() {
     }
 
     fun setResponse() = loginViewModel.getLoginResponse.observe(viewLifecycleOwner, Observer {
-        Loading.dismiss()
-        Toast.makeText(activity, it.string(), Toast.LENGTH_SHORT).show()
+        (activity as LoginActivity).loading!!.dismiss()
+        if (it != null && it.success) {
+            Paper.book().write("login",it)
+            startActivity(Intent(requireActivity(), HomeActivity::class.java))
+            requireActivity().finish()
+
+        }
+
+
+
     })
 
     fun setError() = loginViewModel.getError.observe(viewLifecycleOwner, Observer {
-        Loading.dismiss()
+        (activity as LoginActivity).loading!!.dismiss()
 
-        if (it != null)
-            Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_SHORT).show()
-        else
-            Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+        if (it != null) {
+            if (it is UnknownHostException)
+                Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
+            else if (it is HttpException) {
+                Log.e("eeee",it.response()!!.errorBody()!!.string())
 
+                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                    .show()
+            }else
+                Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+        }
 
     })
 }
