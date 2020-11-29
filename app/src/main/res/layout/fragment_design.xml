@@ -15,6 +15,7 @@
         android:editable="false"
         android:padding="@dimen/margin15"
         android:text="لون الشعر"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/edt_skin_color"
@@ -30,6 +31,8 @@
         android:editable="false"
         android:padding="@dimen/margin15"
         android:text="لون البشرة"
+        android:focusable="false"
+
         app:layout_constraintEnd_toStartOf="@+id/edt_hair_color"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +48,7 @@
         android:editable="false"
         android:padding="@dimen/margin15"
         android:text="نوع الجسم"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="@id/edt_hair_color"
         app:layout_constraintStart_toStartOf="@id/edt_hair_color"
         app:layout_constraintTop_toBottomOf="@id/edt_hair_color" />

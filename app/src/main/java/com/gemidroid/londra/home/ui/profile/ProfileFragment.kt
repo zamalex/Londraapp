@@ -46,10 +46,13 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as HomeActivity).loading!!.show()
 
+
+
         viewModel.profile(
             "Bearer ${loginRes.data.accessToken}",
-            "fleetcart_session=eyJpdiI6IlUyU0NGWHpEY0grRnRuSFdoYUFPZXc9PSIsInZhbHVlIjoiL0tDS0VtMXZ0YkFWbVFkRC9lVVFlMzRUYkt4VlhZc1dwd3R0VzRIQjZYc25MbEdTeU9ieDNGNHQ3S0loekM1YjRkYVFZRWdTZEo5NnNVQlpIbjNZeEd2SkNpbFNvV3NlTmtyajNvZ3h5aW43RTg0RStzMkVud05XMjZZSEtmM1EiLCJtYWMiOiJlY2U3Y2Q4ZGJjZWRhNzI0NDAxOWU1ODIyNDlhNmEzY2M0NzFlMzkxYWFkNGJiMjRjZTU5ZjcxNjdjYWM4M2UxIn0%3D"
+            "application/json"
         )
+
 
 
 
