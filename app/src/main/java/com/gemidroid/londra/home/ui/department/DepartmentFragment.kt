@@ -24,6 +24,7 @@ import java.net.UnknownHostException
 
 class DepartmentFragment : Fragment() {
 
+     var cat:Int? = null
     private val TAG = "DepartmentFragment"
     private var isFavourite = false
     val  viewModel by activityViewModels<ProductsViewModel>()
@@ -39,11 +40,24 @@ class DepartmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().intent?.extras?.getInt("departmentId").let {
+            cat = it
+            Log.e(TAG, "onViewCreated:  $cat ")
+        }
+
+        requireActivity().intent?.extras?.getString("departmentName").let {
             Log.e(TAG, "onViewCreated:  $it ")
+            txt_department_name.text=it
+        }
+
+        requireActivity().intent?.extras?.getString("departmentCount").let {
+            Log.e(TAG, "onViewCreated:  $it ")
+            txt_department_containing.text="${it} قطعة "
         }
 
 
-        viewModel.getCatProducts()
+        (activity as DepartmentActivity).loading?.show()
+
+        viewModel.getCatProducts(1,cat)
 
         setResponse()
         setError()
@@ -53,10 +67,13 @@ class DepartmentFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
     }
 
+
+
     fun setResponse() = viewModel.getCatProductsResponse.observe(viewLifecycleOwner, Observer {
+        (activity as DepartmentActivity).loading?.dismiss()
+
         if (it != null && it.success) {
             rec_pieces.apply {
                 layoutManager =
@@ -66,12 +83,12 @@ class DepartmentFragment : Fragment() {
                     findNavController().navigate(R.id.action_departmentFragment_to_pieceFragment,
                         bundle)
 
-                }, {
+                }, {img,pos->
                     isFavourite = if (!isFavourite) {
-                        it.setImageResource(R.drawable.ic_favorite)
+                        img.setImageResource(R.drawable.ic_favorite)
                         true
                     } else {
-                        it.setImageResource(R.drawable.ic_un_favorite)
+                        img.setImageResource(R.drawable.ic_un_favorite)
                         false
                     }
                 }).apply { setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
@@ -85,6 +102,8 @@ class DepartmentFragment : Fragment() {
     })
 
     fun setError() = viewModel.getCatProductsError.observe(viewLifecycleOwner, Observer {
+        (activity as DepartmentActivity).loading?.dismiss()
+
 
         if (it != null) {
             if (it is UnknownHostException)

@@ -1,12 +1,16 @@
 package com.gemidroid.londra.home.ui.profile
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -19,13 +23,28 @@ import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.gemidroid.londra.utils.Validator
 import com.google.gson.JsonObject
+import com.hbisoft.pickit.PickiT
+import com.hbisoft.pickit.PickiTCallbacks
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
+import com.squareup.picasso.Picasso
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_profile.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
+import java.io.File
 import java.net.UnknownHostException
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment() , PickiTCallbacks {
 
+    var pickiT: PickiT? = null
+    var body: MultipartBody.Part? = null
     private var isInfoShow = true
     private var isAddressesShow = true
     private var isFavShow = true
@@ -46,6 +65,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as HomeActivity).loading!!.show()
 
+        pickiT = PickiT(activity, this)
+
 
 
         viewModel.profile(
@@ -54,6 +75,7 @@ class ProfileFragment : Fragment() {
         )
 
 
+        img_profile.setOnClickListener { checkPermission()}
 
 
         rec_my_addresses.apply {
@@ -139,7 +161,10 @@ class ProfileFragment : Fragment() {
                 edt_profile_name_last.setText(u.lastName)
                 edt_profile_email.setText(u.email)
                 edt_profile_phone.setText(u.mobile)
-
+                if (!u.avatar.isNullOrEmpty())
+                    Picasso.get().load(u.avatar).placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile)
+                        .centerCrop().fit()
+                        .into(img_profile)
             }
 
         }
@@ -219,5 +244,73 @@ class ProfileFragment : Fragment() {
         }
 
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode ==555) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+
+                    val uri = data.data
+
+                    Picasso.get().load(uri).placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile)
+                        .centerCrop().fit()
+                        .into(img_profile)
+                    pickiT!!.getPath(uri, Build.VERSION.SDK_INT)
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        }
+    }
+
+    override fun PickiTonStartListener() {}
+
+    override fun PickiTonProgressUpdate(progress: Int) {}
+
+    override fun PickiTonCompleteListener(
+        path: String,
+        wasDriveFile: Boolean,
+        wasUnknownProvider: Boolean,
+        wasSuccessful: Boolean,
+        Reason: String?
+    ) {
+        val file = File(path)
+
+
+        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+        body = MultipartBody.Part.createFormData("avatar", file.name, requestFile)
+
+        (activity as HomeActivity).loading!!.show()
+
+        viewModel.updateAvatar("Bearer ${loginRes.data.accessToken}", body)
+
+
+    }
+
+    fun checkPermission() {
+        Dexter.withContext(activity)
+            .withPermission(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(permissionGrantedResponse: PermissionGrantedResponse) {
+                    val intent = Intent()
+                    intent.type = "image/*"
+                    intent.action = Intent.ACTION_GET_CONTENT
+                    startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        555
+                    )
+                }
+
+                override fun onPermissionDenied(permissionDeniedResponse: PermissionDeniedResponse) {}
+                override fun onPermissionRationaleShouldBeShown(
+                    permissionRequest: PermissionRequest,
+                    permissionToken: PermissionToken
+                ) {
+                    permissionToken.continuePermissionRequest()
+                }
+            }).onSameThread().check()
     }
 }

@@ -68,5 +68,8 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'io.paperdb:paperdb:2.7.1'
 
+    implementation 'com.github.HBiSoft:PickiT:0.1.10'
+    implementation 'com.karumi:dexter:6.2.1'
+
 
 }

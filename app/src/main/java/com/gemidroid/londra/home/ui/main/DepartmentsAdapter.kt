@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.main.model.CatRes
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.order_item.view.*
 
-class DepartmentsAdapter(private val onItemClick: (Int) -> Unit) :
+class DepartmentsAdapter(private val onItemClick: (Int,String,String) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var catsList = ArrayList<CatRes.Data>()
@@ -28,7 +29,11 @@ class DepartmentsAdapter(private val onItemClick: (Int) -> Unit) :
         holder.itemView.apply {
             txt_order_name.text = catsList[position].name
             setOnClickListener {
-                onItemClick.invoke(catsList[position].id)
+                onItemClick.invoke(catsList[position].id,catsList[position].name,catsList[position].products_count)
+            }
+
+            if (!catsList[position].banner.isNullOrEmpty()){
+                Picasso.get().load(catsList[position].banner).placeholder(R.mipmap.logo).error(R.mipmap.logo).into(img_order)
             }
 
         }

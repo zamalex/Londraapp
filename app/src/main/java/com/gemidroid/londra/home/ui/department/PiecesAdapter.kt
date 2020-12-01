@@ -8,11 +8,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.piece_item.view.*
 
 class PiecesAdapter(
     private val onPieceClick: (Int) -> Unit,
-    private val onLikedClick: (ImageView) -> (Unit),
+    private val onLikedClick: (ImageView,Int) -> (Unit),
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -23,6 +24,8 @@ class PiecesAdapter(
         notifyDataSetChanged()
 
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -38,11 +41,13 @@ class PiecesAdapter(
             txt_piece_price.text = "${prolist[position].price.toString()} ريال "
 
             img_add_to_fav.setOnClickListener {
-                onLikedClick.invoke(it as ImageView)
+                onLikedClick.invoke(it as ImageView,position)
             }
             setOnClickListener {
                 onPieceClick.invoke(position)
             }
+            if (!prolist[position].thumbnail.isNullOrEmpty())
+                Picasso.get().load(prolist[position].thumbnail).placeholder(R.drawable.ic_mask).error(R.drawable.ic_mask).into(img_piece)
         }
 
 
@@ -51,5 +56,7 @@ class PiecesAdapter(
     override fun getItemCount(): Int {
         return prolist.size
     }
+
+
 
 }

@@ -12,10 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.f3aleity.utils.Loading
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.forgotpassword.ui.ForgetPasswordActivity
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.login.ui.viewmodel.LoginViewModel
 import com.gemidroid.londra.utils.Validator
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -68,12 +70,11 @@ class LoginFragment : Fragment() {
     fun setResponse() = loginViewModel.getLoginResponse.observe(viewLifecycleOwner, Observer {
         (activity as LoginActivity).loading!!.dismiss()
         if (it != null && it.success) {
-            Paper.book().write("login",it)
+            Paper.book().write("login", it)
             startActivity(Intent(requireActivity(), HomeActivity::class.java))
             requireActivity().finish()
 
         }
-
 
 
     })
@@ -85,11 +86,21 @@ class LoginFragment : Fragment() {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
-                Log.e("eeee",it.response()!!.errorBody()!!.string())
+               // Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                var successResponse = Gson().fromJson(
+                    it.response()!!.errorBody()!!.string(),
+                    SuccessResponse::class.java
+                )
+                if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                    Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+                else
+
 
                 Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
                     .show()
-            }else
+            } else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }
 

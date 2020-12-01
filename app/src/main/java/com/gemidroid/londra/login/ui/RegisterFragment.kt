@@ -11,9 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.f3aleity.utils.Loading
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.login.ui.viewmodel.RegisterViewModel
 import com.gemidroid.londra.utils.Validator
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -70,9 +72,21 @@ class RegisterFragment : Fragment() {
         if (it != null) {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
-            else if (it is HttpException)
+            else if (it is HttpException){
+                var successResponse = Gson().fromJson(
+                    it.response()!!.errorBody()!!.string(),
+                    SuccessResponse::class.java
+                )
+                if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                    Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+                else
 
-                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                        .show()
+            }
+
             else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }

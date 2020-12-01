@@ -49,9 +49,11 @@ class MainFragment : Fragment() {
             (activity as HomeActivity).loading!!.dismiss()
             if (it!=null&&it.success){
                 rec_orders.apply {
-                    adapter = DepartmentsAdapter {
+                    adapter = DepartmentsAdapter {id,name,count->
                         val intent = Intent(requireActivity(), DepartmentActivity::class.java)
-                        intent.putExtra("departmentId", it)
+                        intent.putExtra("departmentId", id)
+                        intent.putExtra("departmentName", name)
+                        intent.putExtra("departmentCount", count)
                         startActivity(intent)
                     }.apply { setCats(it.data as ArrayList<CatRes.Data>) }
                 }

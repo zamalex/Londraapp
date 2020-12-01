@@ -46,6 +46,8 @@ data class CatProducstRes(
             var description: String = "",
             @SerializedName("designer")
             var designer: String = "",
+            @SerializedName("banner")
+            var banner: String = "",
             @SerializedName("has_offer")
             var hasOffer: Boolean = false,
             @SerializedName("id")

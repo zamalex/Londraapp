@@ -15,6 +15,10 @@ data class CatRes(
         @SerializedName("id")
         var id: Int = 0,
         @SerializedName("name")
-        var name: String = ""
+        var name: String = "",
+        @SerializedName("products_count")
+        var products_count: String = "",
+        @SerializedName("banner")
+        var banner: String = ""
     )
 }
