@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.CookieHandler
 import java.net.CookieManager
+import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
 
 object Retrofit {
@@ -18,7 +19,9 @@ object Retrofit {
             level = HttpLoggingInterceptor.Level.BODY
 
         }
-    var cookieHandler: CookieHandler = CookieManager()
+    var cookieHandler: CookieHandler = CookieManager().apply {
+        setCookiePolicy(CookiePolicy.ACCEPT_ALL)
+    }
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(logging)
