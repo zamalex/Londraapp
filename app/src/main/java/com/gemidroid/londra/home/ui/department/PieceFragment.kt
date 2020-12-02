@@ -83,6 +83,19 @@ class PieceFragment : Fragment() {
             adapter = adapterNames
         }
 
+        rec_sizes_names.apply {
+            adapter = ColorNamesAdapter(
+                listOf(
+                    ColorNamesAdapter.ColorViewItem("XS"),
+                    ColorNamesAdapter.ColorViewItem("S"),
+                    ColorNamesAdapter.ColorViewItem("M"),
+                    ColorNamesAdapter.ColorViewItem("L"),
+                    ColorNamesAdapter.ColorViewItem("XL"),
+                    ColorNamesAdapter.ColorViewItem("XXL")
+                )
+            )
+        }
+
         setResponse()
         setError()
     }
@@ -92,19 +105,21 @@ class PieceFragment : Fragment() {
         (activity as DepartmentActivity).loading?.dismiss()
 
         if (it != null && it.success) {
-            it.data.let { r->
+            it.data.let { r ->
                 txt_brand_name.text = r.name
                 txt_piece_name.text = r.name
-                txt_piece_price.text = if(r.hasOffer)"${r.sellingPrice} ريال " else "${r.price} ريال "
+                txt_piece_price.text =
+                    if (r.hasOffer) "${r.sellingPrice} ريال " else "${r.price} ريال "
                 txt_desc.text = r.description
                 txt_material.text = r.material
                 txt_factory.text = r.designer
-                rec_clients_ratings.adapter = ClientRatingAdapter(r.reviews as ArrayList<ProductDetailsRes.Data.Review>)
+                rec_clients_ratings.adapter =
+                    ClientRatingAdapter(r.reviews as ArrayList<ProductDetailsRes.Data.Review>)
                 rec_pieces_designs.apply {
                     layoutManager =
                         GridLayoutManager(requireContext(), 1, GridLayoutManager.HORIZONTAL, true)
                     adapter = PiecesDesignsAdapter(
-                      r.images
+                        r.images
                     )
                 }
 

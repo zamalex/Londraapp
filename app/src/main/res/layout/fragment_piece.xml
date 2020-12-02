@@ -195,14 +195,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_factory"
                 app:layout_constraintTop_toTopOf="@id/btn_add_to_cart" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_sizes_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart"
+                app:reverseLayout="true"
+                tools:listitem="@layout/color_name_item" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ctl_sizes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin20"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorGrey"
                 android:padding="@dimen/margin5"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_to_cart">
+                app:layout_constraintTop_toBottomOf="@+id/rec_sizes_names">
 
                 <TextView
                     android:id="@+id/txt_binch_title"
@@ -266,6 +276,166 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/custom_sizes"
+                app:layout_constraintTop_toBottomOf="@+id/ctl_sizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_mask"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/mask_style"
+                    app:layout_constraintBottom_toBottomOf="@id/ctl_sizes2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ctl_sizes2"
+                    app:layout_constraintWidth_percent=".5" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ctl_sizes2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin25"
+                    android:layout_marginEnd="@dimen/margin10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".45">
+
+                    <TextView
+                        android:id="@+id/txt_binch_title2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="محيط الصدر"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/edt_binch2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/edt_binch2" />
+
+                    <EditText
+                        android:id="@+id/edt_binch2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin10"
+                        android:background="@drawable/edt_shape_white"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/margin5"
+                        app:layout_constraintEnd_toStartOf="@id/txt_binch_title2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_twist_title2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="الوسط"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/edt_twist2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_binch_title2"
+                        app:layout_constraintTop_toTopOf="@id/edt_twist2" />
+
+                    <EditText
+                        android:id="@+id/edt_twist2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin20"
+                        android:background="@drawable/edt_shape_white"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/margin5"
+                        app:layout_constraintEnd_toEndOf="@id/edt_binch2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edt_binch2" />
+
+                    <TextView
+                        android:id="@+id/txt_arm_length_title2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="طول الذراع"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/edt_arm_length2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_twist_title2"
+                        app:layout_constraintTop_toTopOf="@id/edt_arm_length2" />
+
+                    <EditText
+                        android:id="@+id/edt_arm_length2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin20"
+                        android:background="@drawable/edt_shape_white"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/margin5"
+                        app:layout_constraintEnd_toEndOf="@id/edt_twist2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edt_twist2" />
+
+
+                    <TextView
+                        android:id="@+id/txt_arm_width_title2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="عرض الذراع"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/edt_arm_width2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_twist_title2"
+                        app:layout_constraintTop_toTopOf="@id/edt_arm_width2" />
+
+                    <EditText
+                        android:id="@+id/edt_arm_width2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin20"
+                        android:background="@drawable/edt_shape_white"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/margin5"
+                        app:layout_constraintEnd_toEndOf="@id/edt_arm_length2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edt_arm_length2" />
+
+                    <TextView
+                        android:id="@+id/txt_length_title2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="الطول"
+                        android:textColor="@color/colorBlack"
+                        app:layout_constraintBottom_toBottomOf="@id/edt_length2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_arm_width_title2"
+                        app:layout_constraintTop_toTopOf="@id/edt_length2" />
+
+                    <EditText
+                        android:id="@+id/edt_length2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin20"
+                        android:background="@drawable/edt_shape_white"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/margin5"
+                        app:layout_constraintEnd_toEndOf="@id/edt_arm_width2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edt_arm_width2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <TextView
                 android:id="@+id/txt_additions_title"
                 android:layout_width="wrap_content"
@@ -275,7 +445,7 @@
                 android:text="إضافات"
                 android:textColor="@color/colorGreyBlack"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ctl_sizes" />
+                app:layout_constraintTop_toBottomOf="@id/custom_sizes" />
 
             <RadioGroup
                 android:id="@+id/rd_group"
