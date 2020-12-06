@@ -39,15 +39,17 @@ data class CatProducstRes(
     ) {
         data class Data(
             @SerializedName("additional")
-            var additional: List<Any> = listOf(),
+            var additional: Additional = Additional(),
+            @SerializedName("can_custom_sizes")
+            var canCustomSizes: Int = 0,
             @SerializedName("colors")
-            var colors: List<Any> = listOf(),
+            var colors: Colors = Colors(),
+            @SerializedName("custom_sizes")
+            var customSizes: Any = Any(),
             @SerializedName("description")
             var description: String = "",
             @SerializedName("designer")
             var designer: String = "",
-            @SerializedName("banner")
-            var banner: String = "",
             @SerializedName("has_offer")
             var hasOffer: Boolean = false,
             @SerializedName("id")
@@ -65,10 +67,66 @@ data class CatProducstRes(
             @SerializedName("selling_price")
             var sellingPrice: Int = 0,
             @SerializedName("sizes")
-            var sizes: List<Any> = listOf(),
+            var sizes: Sizes = Sizes(),
             @SerializedName("thumbnail")
             var thumbnail: String = ""
         ) {
+            data class Additional(
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_required")
+                var isRequired: Int = 0,
+                @SerializedName("name")
+                var name: String = "",
+                @SerializedName("values")
+                var values: List<Value> = listOf()
+            ) {
+                data class Value(
+                    @SerializedName("hint_name_1")
+                    var hintName1: String = "",
+                    @SerializedName("hint_name_2")
+                    var hintName2: String = "",
+                    @SerializedName("hint_name_3")
+                    var hintName3: String = "",
+                    @SerializedName("id")
+                    var id: Int = 0,
+                    @SerializedName("is_selected")
+                    var isSelected: Int = 0,
+                    @SerializedName("label")
+                    var label: String = "",
+                    @SerializedName("price")
+                    var price: Int = 0
+                )
+            }
+
+            data class Colors(
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_required")
+                var isRequired: Int = 0,
+                @SerializedName("name")
+                var name: String = "",
+                @SerializedName("values")
+                var values: List<Value> = listOf()
+            ) {
+                data class Value(
+                    @SerializedName("hint_name_1")
+                    var hintName1: String = "",
+                    @SerializedName("hint_name_2")
+                    var hintName2: String = "",
+                    @SerializedName("hint_name_3")
+                    var hintName3: String = "",
+                    @SerializedName("id")
+                    var id: Int = 0,
+                    @SerializedName("is_selected")
+                    var isSelected: Int = 0,
+                    @SerializedName("label")
+                    var label: String = "",
+                    @SerializedName("price")
+                    var price: Int = 0
+                )
+            }
+
             data class Review(
                 @SerializedName("comment")
                 var comment: String = "",
@@ -81,6 +139,34 @@ data class CatProducstRes(
                 @SerializedName("reviewer_name")
                 var reviewerName: String = ""
             )
+
+            data class Sizes(
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_required")
+                var isRequired: Int = 0,
+                @SerializedName("name")
+                var name: String = "",
+                @SerializedName("values")
+                var values: List<Value> = listOf()
+            ) {
+                data class Value(
+                    @SerializedName("hint_name_1")
+                    var hintName1: String = "",
+                    @SerializedName("hint_name_2")
+                    var hintName2: String = "",
+                    @SerializedName("hint_name_3")
+                    var hintName3: String = "",
+                    @SerializedName("id")
+                    var id: Int = 0,
+                    @SerializedName("is_selected")
+                    var isSelected: Int = 0,
+                    @SerializedName("label")
+                    var label: String = "",
+                    @SerializedName("price")
+                    var price: Int = 0
+                )
+            }
         }
     }
 }

@@ -13,9 +13,11 @@ data class ProductDetailsRes(
 ) {
     data class Data(
         @SerializedName("additional")
-        var additional: List<Any> = listOf(),
+        var additional: Additional = Additional(),
         @SerializedName("colors")
-        var colors: List<Any> = listOf(),
+        var colors: Color = Color(),
+        @SerializedName("custom_sizes")
+        var customSizes: Any = Any(),
         @SerializedName("description")
         var description: String = "",
         @SerializedName("designer")
@@ -37,10 +39,40 @@ data class ProductDetailsRes(
         @SerializedName("selling_price")
         var sellingPrice: Int = 0,
         @SerializedName("sizes")
-        var sizes: List<Any> = listOf(),
+        var sizes: Size = Size(),
         @SerializedName("thumbnail")
         var thumbnail: String = ""
     ) {
+        data class Color(
+            @SerializedName("id")
+            var id: Int = 0,
+            @SerializedName("is_required")
+            var isRequired: Int = 0,
+            @SerializedName("name")
+            var name: String = "",
+            @SerializedName("values")
+            var values: List<Value> = listOf()
+        ) {
+            data class Value(
+                var selected:Boolean = false,
+
+                @SerializedName("hint_name_1")
+                var hintName1: String = "",
+                @SerializedName("hint_name_2")
+                var hintName2: String = "",
+                @SerializedName("hint_name_3")
+                var hintName3: String = "",
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_selected")
+                var isSelected: Int = 0,
+                @SerializedName("label")
+                var label: String = "",
+                @SerializedName("price")
+                var price: Int = 0
+            )
+        }
+
         data class Review(
             @SerializedName("comment")
             var comment: String = "",
@@ -53,5 +85,66 @@ data class ProductDetailsRes(
             @SerializedName("reviewer_name")
             var reviewerName: String = ""
         )
+
+        data class Size(
+
+            @SerializedName("id")
+            var id: Int = 0,
+            @SerializedName("is_required")
+            var isRequired: Int = 0,
+            @SerializedName("name")
+            var name: String = "",
+            @SerializedName("values")
+            var values: List<Value> = listOf()
+        ) {
+            data class Value(
+                var selected:Boolean = false,
+
+                @SerializedName("hint_name_1")
+                var hintName1: String = "",
+                @SerializedName("hint_name_2")
+                var hintName2: String = "",
+                @SerializedName("hint_name_3")
+                var hintName3: String = "",
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_selected")
+                var isSelected: Int = 0,
+                @SerializedName("label")
+                var label: String = "",
+                @SerializedName("price")
+                var price: Int = 0
+            )
+        }
+
+        data class Additional(
+            @SerializedName("id")
+            var id: Int = 0,
+            @SerializedName("is_required")
+            var isRequired: Int = 0,
+            @SerializedName("name")
+            var name: String = "",
+            @SerializedName("values")
+            var values: List<Value> = listOf()
+        ) {
+            data class Value(
+                var selected:Boolean = false,
+
+                @SerializedName("hint_name_1")
+                var hintName1: String = "",
+                @SerializedName("hint_name_2")
+                var hintName2: String = "",
+                @SerializedName("hint_name_3")
+                var hintName3: String = "",
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("is_selected")
+                var isSelected: Int = 0,
+                @SerializedName("label")
+                var label: String = "",
+                @SerializedName("price")
+                var price: Int = 0
+            )
+        }
     }
 }

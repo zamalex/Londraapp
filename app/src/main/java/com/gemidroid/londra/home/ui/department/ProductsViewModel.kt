@@ -2,6 +2,7 @@ package com.gemidroid.londra.home.ui.department
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gemidroid.londra.home.ui.department.model.AddProductRes
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.home.ui.department.model.ProductDetailsRes
 import com.gemidroid.londra.home.ui.profile.ProfileRes
@@ -30,6 +31,18 @@ class ProductsViewModel:ViewModel() {
             }
     }
 
+    fun addProduct(jsonObject: JsonObject){
+        Retrofit.Api.addProduct(jsonObject)
+            .subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                addProductResponse.postValue(t1)
+                addProductError.postValue(t2)
+            }
+    }
+
+
+    val addProductResponse = MutableLiveData<AddProductRes>()
+    val addProductError = MutableLiveData<Throwable>()
 
 
     val getCatProductsResponse = MutableLiveData<CatProducstRes>()

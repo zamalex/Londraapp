@@ -2,6 +2,7 @@ package creativitysol.com.planstech.api
 
 import com.gemidroid.londra.forgotpassword.ui.model.CheckRes
 import com.gemidroid.londra.forgotpassword.ui.model.SendCodeRes
+import com.gemidroid.londra.home.ui.department.model.AddProductRes
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.home.ui.department.model.ProductDetailsRes
 import com.gemidroid.londra.home.ui.main.model.CatRes
@@ -75,6 +76,9 @@ interface ApiService {
 
     @POST("auth/reset-password")
     fun updatePass(@Body body: JsonObject): Single<CheckRes>
+
+    @POST("carts/add")
+    fun addProduct(@Body body: JsonObject): Single<AddProductRes>
 
 
 }
