@@ -8,8 +8,8 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.department.model.ProductDetailsRes
 import kotlinx.android.synthetic.main.color_name_item.view.*
 
-class ColorNamesAdapter(
-    private val names: List<ProductDetailsRes.Data.Color.Value>,val onItemClick:(ProductDetailsRes.Data.Color.Value)->Unit
+class SizesAdapter(
+    private val names: List<ProductDetailsRes.Data.Size.Value>, val onItemClick:(ProductDetailsRes.Data.Size.Value)->Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

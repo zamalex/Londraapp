@@ -69,32 +69,9 @@ class PieceFragment : Fragment() {
 
 
 
-        adapterNames = ColorNamesAdapter(
-            listOf(
-                ColorNamesAdapter.ColorViewItem("أسود"),
-                ColorNamesAdapter.ColorViewItem("أخضر"),
-                ColorNamesAdapter.ColorViewItem("أحمر"),
-                ColorNamesAdapter.ColorViewItem("موف"),
-                ColorNamesAdapter.ColorViewItem("أزرق")
-            )
-        )
 
-        rec_color_names.apply {
-            adapter = adapterNames
-        }
 
-        rec_sizes_names.apply {
-            adapter = ColorNamesAdapter(
-                listOf(
-                    ColorNamesAdapter.ColorViewItem("XS"),
-                    ColorNamesAdapter.ColorViewItem("S"),
-                    ColorNamesAdapter.ColorViewItem("M"),
-                    ColorNamesAdapter.ColorViewItem("L"),
-                    ColorNamesAdapter.ColorViewItem("XL"),
-                    ColorNamesAdapter.ColorViewItem("XXL")
-                )
-            )
-        }
+
 
         setResponse()
         setError()
@@ -106,6 +83,37 @@ class PieceFragment : Fragment() {
 
         if (it != null && it.success) {
             it.data.let { r ->
+
+                adapterNames = ColorNamesAdapter(
+                   r.colors[0].values,{c->
+                        Toast.makeText(activity,c.label,Toast.LENGTH_SHORT).show()
+
+                    }
+                )
+
+                rec_color_names.apply {
+                    adapter = adapterNames
+                }
+
+                rec_sizes_names.apply {
+                    adapter = SizesAdapter(
+                        r.sizes[0].values,{c->
+                            txt_binch.text = c.hintName1
+                            txt_twist.text=c.hintName2
+                            txt_leg.text = c.hintName3
+                        }
+                    )
+                }
+
+
+                rd_group.apply {
+                    adapter = AdditionalAdapter(
+                        r.additional[0].values,{c->
+
+                        }
+                    )
+                }
+
                 txt_brand_name.text = r.name
                 txt_piece_name.text = r.name
                 txt_piece_price.text =
