@@ -9,6 +9,8 @@ import com.gemidroid.londra.home.ui.profile.ProfileRes
 import com.google.gson.JsonObject
 import creativitysol.com.planstech.api.Retrofit
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ProductsViewModel:ViewModel() {
 
@@ -31,8 +33,8 @@ class ProductsViewModel:ViewModel() {
             }
     }
 
-    fun addProduct(jsonObject: JsonObject){
-        Retrofit.Api.addProduct(jsonObject)
+    fun addProduct(parts: RequestBody){
+        Retrofit.Api.addProduct(parts)
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
                 addProductResponse.postValue(t1)

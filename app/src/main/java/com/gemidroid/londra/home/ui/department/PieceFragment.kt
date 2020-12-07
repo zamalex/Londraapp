@@ -1,6 +1,5 @@
 package com.gemidroid.londra.home.ui.department;
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,16 +12,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gemidroid.londra.R
-import com.gemidroid.londra.api.SuccessResponse
-import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.department.DepartmentFragment.Companion.SELECTED_PIECE_KEY
 import com.gemidroid.londra.home.ui.department.model.ProductDetailsRes
-import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_piece.*
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
@@ -40,6 +39,8 @@ class PieceFragment : Fragment() {
     var selectedSize: Int? = null
     var selectedAddition: Int? = null
     var cart: String? = null
+    var parts: List<MultipartBody.Part> = ArrayList()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,18 +85,29 @@ class PieceFragment : Fragment() {
             jsonObject.addProperty("user_id", loginRes.data.user.id)
             jsonObject.addProperty("product_id", viewModel.getProductResponse.value?.data?.id)
             jsonObject.addProperty("quantity", 1)
+
+
+
+            val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("user_id", loginRes.data.user.id.toString())
+                .addFormDataPart("product_id",  viewModel.getProductResponse.value?.data?.id.toString())
+                .addFormDataPart("quantity", "1")
+
             if (cart != null)
-                jsonObject.addProperty("cart_id", cart!!)
+                builder.addFormDataPart("cart_id", cart!!)
             if (selectedColor!=null)
-                jsonObject.addProperty("options[]", selectedColor!!)
+                builder.addFormDataPart("options[]", selectedColor.toString())
+
 
             if (selectedSize!=null)
-                jsonObject.addProperty("options[]", selectedSize!!)
+                builder.addFormDataPart("options[]", selectedSize.toString())
 
             if (selectedAddition!=null)
-                jsonObject.addProperty("options[]", selectedAddition!!)
+                builder.addFormDataPart("options[]", selectedAddition.toString())
 
-            viewModel.addProduct(jsonObject)
+
+
+            viewModel.addProduct(builder.build())
 
 
 

@@ -78,7 +78,7 @@ interface ApiService {
     fun updatePass(@Body body: JsonObject): Single<CheckRes>
 
     @POST("carts/add")
-    fun addProduct(@Body body: JsonObject): Single<AddProductRes>
+    fun addProduct(@Body parts:RequestBody): Single<AddProductRes>
 
 
 }
