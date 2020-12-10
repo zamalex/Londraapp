@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -58,10 +59,11 @@ class MyOrdersListFragment : Fragment() {
     fun setCartResponse() = viewModel.cartResponse.observe(viewLifecycleOwner, Observer { r ->
         (activity as HomeActivity).loading?.dismiss()
         if (r != null && r.success) {
-            btn_payment.isEnabled = true
+            btn_payment.SetVisibility("الدفع",true)
             rec_orders_list.apply {
                 adapter = MyOrdersListAdapter({ item ->
-                    btn_payment.isEnabled = false
+                   // btn_payment.isEnabled = false
+                    btn_payment.SetVisibility("Loading...",false)
 
                     val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
                         .addFormDataPart("user_id", loginRes.data.user.id.toString())
@@ -81,26 +83,8 @@ class MyOrdersListFragment : Fragment() {
                         , 1500)
 
 
-                }, { item ->
-                    btn_payment.isEnabled = false
-                    val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("user_id", loginRes.data.user.id.toString())
-                        .addFormDataPart("product_id", item.productId.toString())
-                        .addFormDataPart("quantity", "${item.quantity}")
-                        .addFormDataPart("math_type", "balance")
+                }, { deletedItem ->
 
-                    if (cart != null)
-                        builder.addFormDataPart("cart_id", cart!!)
-
-                    timer.cancel()
-                    timer=Timer()
-
-                    timer.schedule(timerTask {
-                        viewModel.addProduct(builder.build())
-
-                    }
-
-                        , 1500)
                 }).also { it.setData(r.data.items) }
             }
 
@@ -124,4 +108,10 @@ class MyOrdersListFragment : Fragment() {
         }
 
     })
+
+    fun Button.SetVisibility( t:String,bb:Boolean){
+           isEnabled = bb
+            text = t
+
+    }
 }

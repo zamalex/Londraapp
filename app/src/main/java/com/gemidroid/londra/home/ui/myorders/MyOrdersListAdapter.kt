@@ -7,7 +7,7 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.department.model.AddProductRes
 import kotlinx.android.synthetic.main.my_order_item.view.*
 
-class MyOrdersListAdapter(val onIncrease: (item:AddProductRes.Data.Item) -> Unit,val onDecrease: (item:AddProductRes.Data.Item) -> Unit) :
+class MyOrdersListAdapter(val onQuantityChange: (item:AddProductRes.Data.Item) -> Unit,val onDeleteClick: (item:AddProductRes.Data.Item) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var list:List<AddProductRes.Data.Item> = ArrayList()
@@ -34,14 +34,14 @@ class MyOrdersListAdapter(val onIncrease: (item:AddProductRes.Data.Item) -> Unit
 
             it.btn_increase.setOnClickListener {
                 item.quantity++
-                onIncrease.invoke(item)
+                onQuantityChange.invoke(item)
                 notifyDataSetChanged()
             }
             it.btn_decrease.setOnClickListener {
                 if (item.quantity==1)
                     return@setOnClickListener
                 item.quantity--
-                onDecrease.invoke(item)
+                onQuantityChange.invoke(item)
                 notifyDataSetChanged()
 
             }
