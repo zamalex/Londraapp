@@ -60,6 +60,9 @@ interface ApiService {
     @GET("products")
     fun getProducts(): Single<ResponseBody>
 
+    @GET("carts/{id}/items")
+    fun getCart(@Path("id")cart: String): Single<AddProductRes>
+
 
     @POST("auth/update")
     fun updateProfile(
@@ -79,6 +82,9 @@ interface ApiService {
 
     @POST("carts/add")
     fun addProduct(@Body parts:RequestBody): Single<AddProductRes>
+
+    @POST("carts/{cart}/user/{user}/update")
+    fun updateCart(@Path("cart")cart:String,@Path("user")user:String): Single<AddProductRes>
 
 
 }
