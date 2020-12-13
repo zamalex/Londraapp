@@ -26,6 +26,15 @@ class OrdersViewModel:ViewModel() {
             }
     }
 
+    fun removeProduct(cart: String,prodct:String){
+        Retrofit.Api.removeItem(cart,prodct)
+            .subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                cartResponse.postValue(t1)
+                cartError.postValue(t2)
+            }
+    }
+
    // val addProductResponse = MutableLiveData<AddProductRes>()
    // val addProductError = MutableLiveData<Throwable>()
 

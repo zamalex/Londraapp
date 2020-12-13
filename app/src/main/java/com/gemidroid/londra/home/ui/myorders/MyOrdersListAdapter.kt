@@ -45,6 +45,9 @@ class MyOrdersListAdapter(val onQuantityChange: (item:AddProductRes.Data.Item) -
                 notifyDataSetChanged()
 
             }
+            it.img_delete.setOnClickListener {
+                onDeleteClick.invoke(item)
+            }
 
         }
 

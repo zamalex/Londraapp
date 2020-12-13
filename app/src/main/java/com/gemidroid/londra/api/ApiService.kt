@@ -11,7 +11,6 @@ import com.gemidroid.londra.home.ui.profile.ProfileRes
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
-import okhttp3.Call
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -63,12 +62,22 @@ interface ApiService {
     @GET("carts/{id}/items")
     fun getCart(@Path("id")cart: String): Single<AddProductRes>
 
+    @GET("notifications")
+    fun getNotifications(@Header("Authorization") token: String): Single<ResponseBody>
+
 
     @POST("auth/update")
     fun updateProfile(
         @Header("Authorization") token: String,
         @Body body: JsonObject
     ): Single<ProfileRes>
+
+
+    @POST("notifications/subscribe")
+    fun subscribeNotifications(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
 
 
     @POST("auth/send-reset-email-link")
@@ -85,6 +94,9 @@ interface ApiService {
 
     @POST("carts/{cart}/user/{user}/update")
     fun updateCart(@Path("cart")cart:String,@Path("user")user:String): Single<AddProductRes>
+
+    @POST("carts/{cart_id}/products/{product_id}/remove")
+    fun removeItem(@Path("cart_id")cart: String,@Path("product_id")product: String): Single<AddProductRes>
 
 
 }

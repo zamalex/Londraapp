@@ -26,7 +26,7 @@ data class AddProductRes(
         var userId: Int = 0
     ) {
         data class Item(
-            @SerializedName("cart_id")
+            @SerializedName("item_id")
             var cartId: Int = 0,
             @SerializedName("description")
             var description: String = "",
@@ -55,9 +55,9 @@ data class AddProductRes(
             @SerializedName("selling_price")
             var sellingPrice: Int = 0,
             @SerializedName("thumbnail")
-            var thumbnail: String = "",
-            @SerializedName("user_size")
-            var userSize: UserSize = UserSize()
+            var thumbnail: String = ""
+          //  @SerializedName("user_size")
+           // var userSize: UserSize = UserSize()
         ) {
             data class UserSize(
                 @SerializedName("arm_length")
