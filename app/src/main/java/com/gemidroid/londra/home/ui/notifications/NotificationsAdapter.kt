@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.data.notifications.Notifications
+import kotlinx.android.synthetic.main.notification_item.view.*
 
 class NotificationsAdapter(
-    private val notificationList: List<Notifications>,
+    private val notificationList: List<NotificationRes.Data>,
     private val onItemClick: (Notifications) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -25,16 +26,16 @@ class NotificationsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
 
-       /* val notificationItem = notificationList[position]
+        val notificationItem = notificationList[position]
 
         holder.itemView.apply {
-            setOnClickListener {
-                onItemClick.invoke(notificationItem)
-            }
-        }*/
+            txt_notification_title.text=notificationItem.content
+            txt_notification_date.text = notificationItem.createdAtHuman
+
+        }
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return notificationList.size
     }
 }

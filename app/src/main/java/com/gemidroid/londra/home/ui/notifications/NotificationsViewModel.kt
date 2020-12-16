@@ -3,8 +3,6 @@ package com.gemidroid.londra.home.ui.notifications
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.ResponseBody
-import retrofit2.Retrofit
 
 class NotificationsViewModel:ViewModel() {
 
@@ -17,6 +15,6 @@ class NotificationsViewModel:ViewModel() {
             }
     }
 
-    val notificationsResponse = MutableLiveData<ResponseBody>()
+    val notificationsResponse = MutableLiveData<NotificationRes>()
     val notificationsError = MutableLiveData<Throwable>()
 }

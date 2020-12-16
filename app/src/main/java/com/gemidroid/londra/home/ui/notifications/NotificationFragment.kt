@@ -32,16 +32,23 @@ class NotificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         notificationsViewModel.getNotifications("Bearer ${loginRes.data.accessToken}")
 
         notificationsViewModel.notificationsResponse.observe(viewLifecycleOwner, Observer {
 
+            if (it!=null&&it.success){
+                rec_notifications.apply {
+                    adapter = NotificationsAdapter(it.data) {
+
+                    }
+                }
+            }
         })
         notificationsViewModel.notificationsError.observe(viewLifecycleOwner, Observer {
-            var error:Throwable = it
             if (it != null) {
-                Log.e("error", "setAddError: ", error)
-                if (error is UnknownHostException)
+                Log.e("error", "setAddError: ", it)
+                if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
 
@@ -57,11 +64,7 @@ class NotificationFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-        rec_notifications.apply {
-            adapter = NotificationsAdapter(emptyList()) {
 
-            }
-        }
 
     }
 }

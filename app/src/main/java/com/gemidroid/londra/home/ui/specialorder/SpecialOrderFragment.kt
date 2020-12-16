@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.gemidroid.londra.R
 import kotlinx.android.synthetic.main.special_order_fragment.*
 
 class SpecialOrderFragment : Fragment() {
 
+    val viewModel:SpecialOrderViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +26,8 @@ class SpecialOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         img_back.setOnClickListener {
             activity?.onBackPressed()
