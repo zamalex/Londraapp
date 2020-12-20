@@ -19,6 +19,7 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.forgotpassword.ui.ForgetPasswordActivity
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.address.UpdateAddressActivity
+import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.gemidroid.londra.utils.Validator
@@ -32,6 +33,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.squareup.picasso.Picasso
+import creativitysol.com.planstech.api.Retrofit
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_profile.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -41,7 +43,7 @@ import retrofit2.HttpException
 import java.io.File
 import java.net.UnknownHostException
 
-class ProfileFragment : Fragment() , PickiTCallbacks {
+class ProfileFragment : Fragment(), PickiTCallbacks {
 
     var pickiT: PickiT? = null
     var body: MultipartBody.Part? = null
@@ -71,20 +73,15 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
 
         viewModel.profile(
             "Bearer ${loginRes.data.accessToken}",
-            "application/json"
+            "fleetcart_session=${Retrofit.cookieJar.cookies[0].value}"
         )
 
 
-        img_profile.setOnClickListener { checkPermission()}
+
+        img_profile.setOnClickListener { checkPermission() }
 
 
-        rec_my_addresses.apply {
-            adapter = MyAddressesAdapter {
-                val intent = Intent(requireActivity(), UpdateAddressActivity::class.java)
-                intent.putExtra("addressId", it)
-                startActivity(intent)
-            }
-        }
+
 
         rec_my_favourites.apply {
             adapter = MyFavouritesAdapter()
@@ -127,6 +124,11 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
             }
         }
 
+        btn_add_address.setOnClickListener {
+            val intent = Intent(requireActivity(), UpdateAddressActivity::class.java)
+            startActivity(intent)
+        }
+
         btn_save.setOnClickListener {
             if (validateInputs()) {
                 (activity as HomeActivity).loading!!.show()
@@ -144,6 +146,7 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
 
         txt_logout.setOnClickListener {
             Paper.book().delete("login")
+            Paper.book().delete("cart")
             startActivity(Intent(requireActivity(), LoginActivity::class.java))
             requireActivity().finish()
         }
@@ -151,6 +154,8 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
         setError()
         setUpdateResponse()
         setProfileError()
+        addressError()
+        getAddressesResponse()
     }
 
     fun setResponse() = viewModel.getResponse.observe(viewLifecycleOwner, Observer {
@@ -162,7 +167,8 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
                 edt_profile_email.setText(u.email)
                 edt_profile_phone.setText(u.mobile)
                 if (!u.avatar.isNullOrEmpty())
-                    Picasso.get().load(u.avatar).placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile)
+                    Picasso.get().load(u.avatar).placeholder(R.drawable.ic_profile)
+                        .error(R.drawable.ic_profile)
                         .centerCrop().fit()
                         .into(img_profile)
             }
@@ -173,6 +179,42 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
     })
 
     fun setError() = viewModel.getError.observe(viewLifecycleOwner, Observer {
+        (activity as HomeActivity).loading!!.dismiss()
+
+        if (it != null) {
+            if (it is UnknownHostException)
+                Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
+            else if (it is HttpException) {
+                Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                    .show()
+            } else
+                Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+        }
+
+    })
+
+
+    fun getAddressesResponse() = viewModel.getAddressResponse.observe(viewLifecycleOwner, Observer {
+        if (it != null && it.success) {
+            it.data.let { u ->
+                rec_my_addresses.apply {
+                    adapter = MyAddressesAdapter {
+                        val intent = Intent(requireActivity(), UpdateAddressActivity::class.java)
+                        intent.putExtra("addressId", it)
+                        startActivity(intent)
+                    }.also { t -> t.setList(u as ArrayList<AddAddressResponse.Data>) }
+                }
+            }
+
+        }
+
+
+    })
+
+
+    fun addressError() = viewModel.getAddressError.observe(viewLifecycleOwner, Observer {
         (activity as HomeActivity).loading!!.dismiss()
 
         if (it != null) {
@@ -248,13 +290,14 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode ==555) {
+        if (requestCode == 555) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
 
                     val uri = data.data
 
-                    Picasso.get().load(uri).placeholder(R.drawable.ic_profile).error(R.drawable.ic_profile)
+                    Picasso.get().load(uri).placeholder(R.drawable.ic_profile)
+                        .error(R.drawable.ic_profile)
                         .centerCrop().fit()
                         .into(img_profile)
                     pickiT!!.getPath(uri, Build.VERSION.SDK_INT)
@@ -284,6 +327,14 @@ class ProfileFragment : Fragment() , PickiTCallbacks {
         (activity as HomeActivity).loading!!.show()
 
         viewModel.updateAvatar("Bearer ${loginRes.data.accessToken}", body)
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.getAddresses("Bearer ${loginRes.data.accessToken}")
 
 
     }

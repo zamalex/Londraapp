@@ -1,8 +1,7 @@
 package creativitysol.com.planstech.api
 
 
-import okhttp3.JavaNetCookieJar
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -23,9 +22,10 @@ object Retrofit {
         setCookiePolicy(CookiePolicy.ACCEPT_ALL)
     }
 
+    var cookieJar = UvCookieJar()
     private val client = OkHttpClient.Builder()
         .addInterceptor(logging)
-        .cookieJar(JavaNetCookieJar(cookieHandler))
+        .cookieJar(cookieJar)
         .readTimeout(60, TimeUnit.SECONDS)
         .connectTimeout(60, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
@@ -43,4 +43,17 @@ object Retrofit {
             ApiService::class.java
         )
     }
+}
+
+ class UvCookieJar : CookieJar {
+
+     val cookies = mutableListOf<Cookie>()
+
+    override fun saveFromResponse(url: HttpUrl, cookieList: List<Cookie>) {
+        cookies.clear()
+        cookies.addAll(cookieList)
+    }
+
+    override fun loadForRequest(url: HttpUrl): List<Cookie> =
+        cookies
 }

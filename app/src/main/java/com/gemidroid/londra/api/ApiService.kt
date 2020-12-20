@@ -5,9 +5,12 @@ import com.gemidroid.londra.forgotpassword.ui.model.SendCodeRes
 import com.gemidroid.londra.home.ui.department.model.AddProductRes
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.home.ui.department.model.ProductDetailsRes
+import com.gemidroid.londra.home.ui.design.AttributeRes
+import com.gemidroid.londra.home.ui.notifications.NotificationRes
 import com.gemidroid.londra.home.ui.main.model.CatRes
 import com.gemidroid.londra.home.ui.main.model.SliderRes
 import com.gemidroid.londra.home.ui.profile.ProfileRes
+import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
@@ -34,7 +37,7 @@ interface ApiService {
 
     @GET("auth/profile")
     fun profile(
-        @Header("Authorization") token: String, @Header("Accept") ept: String
+        @Header("Authorization") token: String, @Header("Cookie") ept: String
     ): Single<ProfileRes>
 
     @GET("products")
@@ -63,7 +66,13 @@ interface ApiService {
     fun getCart(@Path("id")cart: String): Single<AddProductRes>
 
     @GET("notifications")
-    fun getNotifications(@Header("Authorization") token: String): Single<ResponseBody>
+    fun getNotifications(@Header("Authorization") token: String): Single<NotificationRes>
+
+    @GET("appearance/attributes")
+    fun getAppearanceAttributes(@Header("Authorization") token: String,@Query("type")type:String): Single<AttributeRes>
+
+    @GET("auth/cart")
+    fun getCartId(@Header("Authorization") token: String): Single<AddProductRes>
 
 
     @POST("auth/update")
@@ -75,6 +84,13 @@ interface ApiService {
 
     @POST("notifications/subscribe")
     fun subscribeNotifications(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
+
+
+    @POST("appearance/send")
+    fun sendAppearance(
         @Header("Authorization") token: String,
         @Body body: JsonObject
     ): Single<ResponseBody>
@@ -97,6 +113,28 @@ interface ApiService {
 
     @POST("carts/{cart_id}/products/{product_id}/remove")
     fun removeItem(@Path("cart_id")cart: String,@Path("product_id")product: String): Single<AddProductRes>
+
+
+    //address
+
+    @POST("auth/addresses/create")
+    fun addAddress(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<AddAddressResponse>
+
+
+    @POST("auth/addresses/{id}/update")
+    fun updateAddress(
+        @Path("id") id:String,
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<AddAddressResponse>
+
+    @GET("auth/addresses")
+    fun getAddresses(
+        @Header("Authorization") token: String
+    ): Single<AddAddressResponse>
 
 
 }

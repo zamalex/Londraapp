@@ -46,6 +46,10 @@ class MyOrdersListFragment : Fragment() {
             (activity as HomeActivity).loading?.show()
             viewModel.listCart(cart)
         }
+        else {
+            (activity as HomeActivity).loading?.show()
+            viewModel.getCartId("Bearer ${loginRes.data.accessToken}")
+        }
 
 
         btn_payment.setOnClickListener {
@@ -59,6 +63,8 @@ class MyOrdersListFragment : Fragment() {
     fun setCartResponse() = viewModel.cartResponse.observe(viewLifecycleOwner, Observer { r ->
         (activity as HomeActivity).loading?.dismiss()
         if (r != null && r.success) {
+            Paper.book().write("cart",r.data.cartId.toString())
+
             btn_payment.SetVisibility("الدفع",true)
             rec_orders_list.apply {
                 adapter = MyOrdersListAdapter({ item ->

@@ -2,6 +2,7 @@ package com.gemidroid.londra.home.ui.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.google.gson.JsonObject
 import creativitysol.com.planstech.api.Retrofit
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -37,6 +38,32 @@ class ProfileViewModel:ViewModel() {
     }
 
 
+    fun getAddresses(token: String){
+        Retrofit.Api.getAddresses(token).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                getAddressResponse.postValue(t1)
+                getAddressError.postValue(t2)
+            }
+    }
+
+    fun addAddresses(token: String,jsonObject: JsonObject){
+        Retrofit.Api.addAddress(token,jsonObject).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                getAddressResponse.postValue(t1)
+                getAddressError.postValue(t2)
+            }
+    }
+
+    fun updateAddress(id:String,token: String,jsonObject: JsonObject){
+        Retrofit.Api.updateAddress(id,token,jsonObject).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                getAddressResponse.postValue(t1)
+                getAddressError.postValue(t2)
+            }
+    }
+
+    val getAddressResponse = MutableLiveData<AddAddressResponse>()
+    val getAddressError = MutableLiveData<Throwable>()
 
     val getResponse = MutableLiveData<ProfileRes>()
     val getError = MutableLiveData<Throwable>()

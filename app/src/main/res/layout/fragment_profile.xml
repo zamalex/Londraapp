@@ -166,6 +166,16 @@
             app:layout_constraintStart_toStartOf="@id/img_my_address"
             app:layout_constraintTop_toBottomOf="@id/txt_my_address_title"
             tools:listitem="@layout/address_item" />
+        <Button
+            android:id="@+id/btn_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin15"
+            android:background="@drawable/add_address_button"
+            android:text="اضافة عنوان جديد"
+            android:textColor="#C98187"
+            android:textSize="@dimen/font15"
+            app:layout_constraintTop_toBottomOf="@id/rec_my_addresses" />
 
         <TextView
             android:id="@+id/separator2"
@@ -175,7 +185,7 @@
             android:background="@color/colorGreyDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rec_my_addresses" />
+            app:layout_constraintTop_toBottomOf="@id/btn_add_address" />
 
         <TextView
             android:id="@+id/txt_my_favourites_title"
