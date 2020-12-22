@@ -26,8 +26,6 @@ data class AddProductRes(
         var userId: Int = 0
     ) {
         data class Item(
-            @SerializedName("item_id")
-            var cartId: Int = 0,
             @SerializedName("description")
             var description: String = "",
             @SerializedName("designer")
@@ -36,6 +34,8 @@ data class AddProductRes(
             var hasOffer: Boolean = false,
             @SerializedName("images")
             var images: List<String> = listOf(),
+            @SerializedName("item_id")
+            var itemId: Int = 0,
             @SerializedName("material")
             var material: String = "",
             @SerializedName("name")
@@ -47,7 +47,7 @@ data class AddProductRes(
             @SerializedName("quantity")
             var quantity: Int = 0,
             @SerializedName("selected_addition")
-            var selectedAddition: String = "",
+            var selectedAddition: Any = Any(),
             @SerializedName("selected_color")
             var selectedColor: String = "",
             @SerializedName("selected_size")
@@ -55,24 +55,9 @@ data class AddProductRes(
             @SerializedName("selling_price")
             var sellingPrice: Int = 0,
             @SerializedName("thumbnail")
-            var thumbnail: String = ""
-          //  @SerializedName("user_size")
-           // var userSize: UserSize = UserSize()
-        ) {
-            data class UserSize(
-                @SerializedName("arm_length")
-                var armLength: Int = 0,
-                @SerializedName("arm_width")
-                var armWidth: Int = 0,
-                @SerializedName("chest")
-                var chest: Int = 0,
-                @SerializedName("height")
-                var height: Int = 0,
-                @SerializedName("id")
-                var id: Int = 0,
-                @SerializedName("waist")
-                var waist: Int = 0
-            )
-        }
+            var thumbnail: String = "",
+            @SerializedName("user_size")
+            var userSize: Any = Any()
+        )
     }
 }

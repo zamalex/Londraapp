@@ -17,6 +17,8 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.login.ui.LoginActivity
+import com.gemidroid.londra.login.ui.model.LoginRes
+import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_department.*
 import retrofit2.HttpException
@@ -24,10 +26,12 @@ import java.net.UnknownHostException
 
 class DepartmentFragment : Fragment() {
 
-     var cat:Int? = null
+    var cat: Int? = null
     private val TAG = "DepartmentFragment"
     private var isFavourite = false
-    val  viewModel by activityViewModels<ProductsViewModel>()
+    val viewModel by activityViewModels<ProductsViewModel>()
+    val loginRes = Paper.book().read<LoginRes>("login", LoginRes())
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,18 +50,18 @@ class DepartmentFragment : Fragment() {
 
         requireActivity().intent?.extras?.getString("departmentName").let {
             Log.e(TAG, "onViewCreated:  $it ")
-            txt_department_name.text=it
+            txt_department_name.text = it
         }
 
         requireActivity().intent?.extras?.getString("departmentCount").let {
             Log.e(TAG, "onViewCreated:  $it ")
-            txt_department_containing.text="${it} قطعة "
+            txt_department_containing.text = "${it} قطعة "
         }
 
 
         (activity as DepartmentActivity).loading?.show()
 
-        viewModel.getCatProducts(1,cat)
+        viewModel.getCatProducts(1, cat)
 
         setResponse()
         setError()
@@ -70,7 +74,6 @@ class DepartmentFragment : Fragment() {
     }
 
 
-
     fun setResponse() = viewModel.getCatProductsResponse.observe(viewLifecycleOwner, Observer {
         (activity as DepartmentActivity).loading?.dismiss()
 
@@ -80,10 +83,12 @@ class DepartmentFragment : Fragment() {
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
                 adapter = PiecesAdapter({
                     val bundle = bundleOf(SELECTED_PIECE_KEY to it)
-                    findNavController().navigate(R.id.action_departmentFragment_to_pieceFragment,
-                        bundle)
+                    findNavController().navigate(
+                        R.id.action_departmentFragment_to_pieceFragment,
+                        bundle
+                    )
 
-                }, {img,pos->
+                }, { img, id ->
                     isFavourite = if (!isFavourite) {
                         img.setImageResource(R.drawable.ic_favorite)
                         true
@@ -91,12 +96,15 @@ class DepartmentFragment : Fragment() {
                         img.setImageResource(R.drawable.ic_un_favorite)
                         false
                     }
+                    viewModel.addRemoveFavs(
+                        "Bearer ${loginRes.data.accessToken}",
+                        JsonObject().apply { addProperty("product_id", id.toString()) })
                 }).apply { setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
+
 
             }
 
         }
-
 
 
     })
@@ -109,11 +117,11 @@ class DepartmentFragment : Fragment() {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
-                Log.e("eeee",it.response()!!.errorBody()!!.string())
+                Log.e("eeee", it.response()!!.errorBody()!!.string())
 
                 Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
                     .show()
-            }else
+            } else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }
 

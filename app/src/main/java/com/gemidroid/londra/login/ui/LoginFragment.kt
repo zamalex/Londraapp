@@ -71,6 +71,10 @@ class LoginFragment : Fragment() {
         (activity as LoginActivity).loading!!.dismiss()
         if (it != null && it.success) {
             Paper.book().write("login", it)
+
+            Paper.book().write("email", edt_email.text.toString())
+            Paper.book().write("password", edt_password.text.toString())
+
             startActivity(Intent(requireActivity(), HomeActivity::class.java))
             requireActivity().finish()
 
@@ -87,7 +91,6 @@ class LoginFragment : Fragment() {
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
                // Log.e("eeee", it.response()!!.errorBody()!!.string())
-
                 var successResponse = Gson().fromJson(
                     it.response()!!.errorBody()!!.string(),
                     SuccessResponse::class.java

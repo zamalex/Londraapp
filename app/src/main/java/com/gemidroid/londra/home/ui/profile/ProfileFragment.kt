@@ -19,6 +19,8 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.forgotpassword.ui.ForgetPasswordActivity
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.address.UpdateAddressActivity
+import com.gemidroid.londra.home.ui.department.ProductsViewModel
+import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
@@ -54,6 +56,7 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
         Paper.book().read("login", LoginRes())
     }
     private val viewModel by activityViewModels<ProfileViewModel>()
+    private val proViewModel by activityViewModels<ProductsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +79,12 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             "fleetcart_session=${Retrofit.cookieJar.cookies[0].value}"
         )
 
+        Retrofit.cookieJar.cookies.forEach { c -> Log.e("cook", "${c.name} ${c.value}") }
+
+        proViewModel.listFavs(
+            "Bearer ${loginRes.data.accessToken}"
+        )
+
 
 
         img_profile.setOnClickListener { checkPermission() }
@@ -83,9 +92,6 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
 
 
 
-        rec_my_favourites.apply {
-            adapter = MyFavouritesAdapter()
-        }
 
 
         img_my_information.setOnClickListener {
@@ -150,6 +156,35 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             startActivity(Intent(requireActivity(), LoginActivity::class.java))
             requireActivity().finish()
         }
+
+
+        proViewModel.favsResponse.observe(viewLifecycleOwner, Observer {
+            if (it != null && it.success) {
+                rec_my_favourites.apply {
+                    adapter =
+                        MyFavouritesAdapter().also { i -> i.setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
+                }
+
+            }
+        })
+
+        proViewModel.favsError.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it is UnknownHostException)
+                    Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
+                else if (it is HttpException) {
+                    Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                    Toast.makeText(
+                        activity,
+                        it.response()!!.message().toString(),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else
+                    Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+            }
+        })
         setResponse()
         setError()
         setUpdateResponse()
@@ -186,6 +221,11 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
                 Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                //var coky = it.response()!!.headers().get("Set-Cookie")!!.split(";")[0]
+                //Log.e("coky", coky)
+
+               // Paper.book().write("coky", coky)
 
                 Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
                     .show()

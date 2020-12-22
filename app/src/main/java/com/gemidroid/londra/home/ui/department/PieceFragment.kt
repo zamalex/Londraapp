@@ -18,6 +18,7 @@ import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_piece.*
+import kotlinx.android.synthetic.main.piece_item.view.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -87,28 +88,29 @@ class PieceFragment : Fragment() {
             jsonObject.addProperty("quantity", 1)
 
 
-
             val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("user_id", loginRes.data.user.id.toString())
-                .addFormDataPart("product_id",  viewModel.getProductResponse.value?.data?.id.toString())
+                .addFormDataPart(
+                    "product_id",
+                    viewModel.getProductResponse.value?.data?.id.toString()
+                )
                 .addFormDataPart("quantity", "1")
 
             if (cart != null)
                 builder.addFormDataPart("cart_id", cart!!)
-            if (selectedColor!=null)
+            if (selectedColor != null)
                 builder.addFormDataPart("options[]", selectedColor.toString())
 
 
-            if (selectedSize!=null)
+            if (selectedSize != null)
                 builder.addFormDataPart("options[]", selectedSize.toString())
 
-            if (selectedAddition!=null)
+            if (selectedAddition != null)
                 builder.addFormDataPart("options[]", selectedAddition.toString())
 
 
 
             viewModel.addProduct(builder.build())
-
 
 
         }
@@ -131,6 +133,19 @@ class PieceFragment : Fragment() {
 
         if (it != null && it.success) {
             it.data.let { r ->
+
+                if (r.in_favourite == 1) {
+                    img_add_to_fav.setImageResource(R.drawable.ic_favorite)
+
+                } else
+                    img_add_to_fav.setImageResource(R.drawable.ic_un_favorite)
+
+                img_add_to_fav.setOnClickListener {
+                    viewModel.addRemoveFavs(
+                        "Bearer ${loginRes.data.accessToken}",
+                        JsonObject().apply { addProperty("product_id", r.id.toString()) })
+
+                }
 
                 adapterNames = ColorNamesAdapter(
                     r.colors.values
@@ -155,13 +170,14 @@ class PieceFragment : Fragment() {
                 }
 
 
-                rd_group.apply {
-                    adapter = AdditionalAdapter(
-                        r.additional.values
-                    ) { c ->
-                        selectedAddition = c.id
+                if (r.additional != null)
+                    rd_group.apply {
+                        adapter = AdditionalAdapter(
+                            r.additional.values
+                        ) { c ->
+                            selectedAddition = c.id
+                        }
                     }
-                }
 
                 txt_brand_name.text = r.name
                 txt_piece_name.text = r.name
@@ -206,9 +222,9 @@ class PieceFragment : Fragment() {
 
     fun setAddResponse() = viewModel.addProductResponse.observe(viewLifecycleOwner, Observer {
         (activity as DepartmentActivity).loading?.dismiss()
-        if (it!=null&&it.success){
+        if (it != null && it.success) {
             Toast.makeText(activity, "added to cart", Toast.LENGTH_SHORT).show()
-            Paper.book().write("cart",it.data.cartId.toString())
+            Paper.book().write("cart", it.data.cartId.toString())
         }
 
     })
@@ -217,7 +233,7 @@ class PieceFragment : Fragment() {
         (activity as DepartmentActivity).loading?.dismiss()
 
         if (it != null) {
-            Log.e(TAG, "setAddError: ",it )
+            Log.e(TAG, "setAddError: ", it)
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {

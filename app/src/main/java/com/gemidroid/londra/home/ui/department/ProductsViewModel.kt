@@ -12,14 +12,13 @@ import io.paperdb.Paper
 import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 
-class ProductsViewModel:ViewModel() {
+class ProductsViewModel : ViewModel() {
 
 
-
-
-    fun getCatProducts(page:Int,cat:Int?){
-        Retrofit.Api.getCatsProducts(page,cat)
+    fun getCatProducts(page: Int, cat: Int?) {
+        Retrofit.Api.getCatsProducts(page, cat)
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
                 getCatProductsResponse.postValue(t1)
@@ -28,7 +27,7 @@ class ProductsViewModel:ViewModel() {
     }
 
 
-    fun gwtProduct(id:Int){
+    fun gwtProduct(id: Int) {
         Retrofit.Api.getProduct(id)
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
@@ -37,7 +36,7 @@ class ProductsViewModel:ViewModel() {
             }
     }
 
-    fun addProduct(parts: RequestBody){
+    fun addProduct(parts: RequestBody) {
         Retrofit.Api.addProduct(parts)
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
@@ -46,17 +45,36 @@ class ProductsViewModel:ViewModel() {
             }
     }
 
-    fun updateCart(cart:String,user:String){
-        Retrofit.Api.updateCart(cart,user)
+
+    fun updateCart(cart: String, user: String) {
+        Retrofit.Api.updateCart(cart, user)
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
-               if (t1!=null&&t1.success){
-                   Paper.book().write("cart",t1.data.cartId.toString())
-                   Paper.book().write("valid",true)
-               }
+                if (t1 != null && t1.success) {
+                    Paper.book().write("cart", t1.data.cartId.toString())
+                    Paper.book().write("valid", true)
+                }
             }
     }
 
+
+    fun addRemoveFavs(token: String, jsonObject: JsonObject) {
+        Retrofit.Api.addRemoveFavs(token, jsonObject).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+
+            }
+    }
+
+    fun listFavs(token: String) {
+        Retrofit.Api.getFavs(token).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                favsResponse.postValue(t1)
+                favsError.postValue(t2)
+            }
+    }
+
+    val favsResponse = MutableLiveData<CatProducstRes>()
+    val favsError = MutableLiveData<Throwable>()
 
 
     val addProductResponse = MutableLiveData<AddProductRes>()

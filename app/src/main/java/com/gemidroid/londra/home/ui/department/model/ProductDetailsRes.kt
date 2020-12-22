@@ -41,7 +41,9 @@ data class ProductDetailsRes(
         @SerializedName("sizes")
         var sizes: Size = Size(),
         @SerializedName("thumbnail")
-        var thumbnail: String = ""
+        var thumbnail: String = "",
+        @SerializedName("in_favourite")
+        var in_favourite: Int = 0
     ) {
         data class Color(
             @SerializedName("id")

@@ -69,7 +69,9 @@ data class CatProducstRes(
             @SerializedName("sizes")
             var sizes: Sizes = Sizes(),
             @SerializedName("thumbnail")
-            var thumbnail: String = ""
+            var thumbnail: String = "",
+            @SerializedName("in_favourite")
+            var in_favourite: Int = 0
         ) {
             data class Additional(
                 @SerializedName("id")

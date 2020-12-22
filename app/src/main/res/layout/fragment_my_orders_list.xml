@@ -28,17 +28,15 @@
             android:id="@+id/txt_total_prices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
             android:layout_alignParentStart="true"
-            android:text="الإجمالي: 120 ريال" />
+            android:textColor="@color/colorBlack" />
 
         <TextView
             android:id="@+id/txt_total_pieces"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
             android:layout_alignParentEnd="true"
-            android:text="عدد القطع المختارة:(5)" />
+            android:textColor="@color/colorBlack" />
 
     </RelativeLayout>
 

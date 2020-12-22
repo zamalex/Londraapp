@@ -32,8 +32,8 @@ class OrdersViewModel : ViewModel() {
                 cartResponse.postValue(t1)
                 cartError.postValue(t2)
             }
-        Log.e("coooo", Retrofit.cookieJar.cookies.get(0).toString())
-        Log.e("coooo", Retrofit.cookieJar.cookies.get(0).value)
+//        Log.e("coooo", Retrofit.cookieJar.cookies.get(0).toString())
+      //  Log.e("coooo", Retrofit.cookieJar.cookies.get(0).value)
 
     }
 
@@ -43,6 +43,16 @@ class OrdersViewModel : ViewModel() {
             .subscribe { t1, t2 ->
                 cartResponse.postValue(t1)
                 cartError.postValue(t2)
+            }
+    }
+
+    fun updateQuantity(item:String,parts: RequestBody){
+        Retrofit.Api.updateCartQuantity(item,parts)
+            .subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                cartResponse.postValue(t1)
+                cartError.postValue(t2)
+
             }
     }
 

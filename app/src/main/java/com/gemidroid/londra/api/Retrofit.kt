@@ -31,6 +31,8 @@ object Retrofit {
         .retryOnConnectionFailure(true)
         .build()
 
+
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://londra.badee.com.sa/api/v1/")
         .addConverterFactory(GsonConverterFactory.create())

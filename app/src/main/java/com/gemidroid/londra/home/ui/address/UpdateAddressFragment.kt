@@ -1,10 +1,13 @@
 package com.gemidroid.londra.home.ui.address
 
+import android.Manifest
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -12,10 +15,20 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.profile.ProfileViewModel
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.titanium.locgetter.main.LocationGetterBuilder
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.update_address_fragment.*
+import java.util.*
+
 
 class UpdateAddressFragment : Fragment() {
+
+
 
     var addressId: Int = 0
     private val loginRes by lazy {
@@ -65,6 +78,7 @@ class UpdateAddressFragment : Fragment() {
             }
         }
 
+        img_address_map.setOnClickListener { checkPermission() }
 
         viewModel.getAddressResponse.observe(viewLifecycleOwner, Observer {
             (activity as UpdateAddressActivity).loading!!.dismiss()
@@ -75,6 +89,70 @@ class UpdateAddressFragment : Fragment() {
             viewLifecycleOwner,
             Observer { (activity as UpdateAddressActivity).loading!!.dismiss() })
     }
+    fun checkPermission() {
 
 
+        Dexter.withContext(activity)
+            .withPermissions(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    // check if all permissions are granted
+                    if (report.areAllPermissionsGranted()) {
+                        val locationGetter =
+                            LocationGetterBuilder(requireActivity())
+                                .build()
+                        (activity as UpdateAddressActivity).loading!!.show()
+
+                        locationGetter.getLatestLocation()
+                            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+                            .subscribe({ location ->
+                                (activity as UpdateAddressActivity).loading!!.dismiss()
+                                edt_address_details.setText(getCompleteAddressString(location.latitude,location.longitude))
+
+                            }, kotlin.Throwable::printStackTrace)
+
+                    }
+
+                    // check for permanent denial of any permission
+                    if (report.isAnyPermissionPermanentlyDenied()) {
+                        // Toast.makeText(getActivity(), "قم بالسماح للتطبيق للوصول الى موقعك من خلال الاعدادات", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest?>?,
+                    token: PermissionToken
+                ) {
+                    token.continuePermissionRequest()
+                }
+            })
+            .onSameThread()
+            .check()
+    }
+    private fun getCompleteAddressString(
+        LATITUDE: Double,
+        LONGITUDE: Double
+    ): String? {
+        var strAdd = ""
+        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
+        try {
+            val addresses: List<Address>? =
+                geocoder.getFromLocation(LATITUDE, LONGITUDE, 1)
+            if (addresses != null) {
+                val returnedAddress: Address = addresses[0]
+                val strReturnedAddress = StringBuilder("")
+                for (i in 0..returnedAddress.getMaxAddressLineIndex()) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n")
+                }
+                strAdd = strReturnedAddress.toString()
+            } else {
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return strAdd
+    }
 }

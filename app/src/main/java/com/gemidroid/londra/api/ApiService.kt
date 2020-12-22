@@ -26,7 +26,8 @@ interface ApiService {
     @POST("auth/update-avatar")
     fun updateAvatar(
         @Header("Authorization") bearerToken: String,
-        @Part file: MultipartBody.Part?): Single<ProfileRes>
+        @Part file: MultipartBody.Part?
+    ): Single<ProfileRes>
 
     @POST("auth/login")
     fun login(@Body body: JsonObject): Single<LoginRes>
@@ -63,13 +64,16 @@ interface ApiService {
     fun getProducts(): Single<ResponseBody>
 
     @GET("carts/{id}/items")
-    fun getCart(@Path("id")cart: String): Single<AddProductRes>
+    fun getCart(@Path("id") cart: String): Single<AddProductRes>
 
     @GET("notifications")
     fun getNotifications(@Header("Authorization") token: String): Single<NotificationRes>
 
     @GET("appearance/attributes")
-    fun getAppearanceAttributes(@Header("Authorization") token: String,@Query("type")type:String): Single<AttributeRes>
+    fun getAppearanceAttributes(
+        @Header("Authorization") token: String,
+        @Query("type") type: String
+    ): Single<AttributeRes>
 
     @GET("auth/cart")
     fun getCartId(@Header("Authorization") token: String): Single<AddProductRes>
@@ -106,13 +110,22 @@ interface ApiService {
     fun updatePass(@Body body: JsonObject): Single<CheckRes>
 
     @POST("carts/add")
-    fun addProduct(@Body parts:RequestBody): Single<AddProductRes>
+    fun addProduct(@Body parts: RequestBody): Single<AddProductRes>
+
+    @POST("carts/items/{item_id}/update-quantity")
+    fun updateCartQuantity(
+        @Path("item_id") item_id: String,
+        @Body parts: RequestBody
+    ): Single<AddProductRes>
 
     @POST("carts/{cart}/user/{user}/update")
-    fun updateCart(@Path("cart")cart:String,@Path("user")user:String): Single<AddProductRes>
+    fun updateCart(@Path("cart") cart: String, @Path("user") user: String): Single<AddProductRes>
 
     @POST("carts/{cart_id}/products/{product_id}/remove")
-    fun removeItem(@Path("cart_id")cart: String,@Path("product_id")product: String): Single<AddProductRes>
+    fun removeItem(
+        @Path("cart_id") cart: String,
+        @Path("product_id") product: String
+    ): Single<AddProductRes>
 
 
     //address
@@ -126,7 +139,7 @@ interface ApiService {
 
     @POST("auth/addresses/{id}/update")
     fun updateAddress(
-        @Path("id") id:String,
+        @Path("id") id: String,
         @Header("Authorization") token: String,
         @Body body: JsonObject
     ): Single<AddAddressResponse>
@@ -135,6 +148,19 @@ interface ApiService {
     fun getAddresses(
         @Header("Authorization") token: String
     ): Single<AddAddressResponse>
+
+
+    //favorites
+    @GET("auth/favourites")
+    fun getFavs(
+        @Header("Authorization") token: String
+    ): Single<CatProducstRes>
+
+    @POST("auth/favourite")
+    fun addRemoveFavs(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
 
 
 }

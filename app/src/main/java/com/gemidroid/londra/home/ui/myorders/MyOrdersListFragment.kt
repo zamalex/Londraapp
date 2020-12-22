@@ -65,6 +65,14 @@ class MyOrdersListFragment : Fragment() {
         if (r != null && r.success) {
             Paper.book().write("cart",r.data.cartId.toString())
 
+            var total = 0
+            r.data.items.forEach { i-> total+=i.quantity }
+
+            txt_total_pieces.text = "عدد القطع المختارة:(${total})"
+            txt_total_prices.text = "الإجمالي: ${r.data.sellingPrice} ريال"
+
+
+
             btn_payment.SetVisibility("الدفع",true)
             rec_orders_list.apply {
                 adapter = MyOrdersListAdapter({ item ->
@@ -72,8 +80,8 @@ class MyOrdersListFragment : Fragment() {
                     btn_payment.SetVisibility("Loading...",false)
 
                     val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("user_id", loginRes.data.user.id.toString())
-                        .addFormDataPart("product_id", item.productId.toString())
+                      //  .addFormDataPart("user_id", loginRes.data.user.id.toString())
+                       // .addFormDataPart("product_id", item.itemId.toString())
                         .addFormDataPart("quantity", "${item.quantity}")
                         .addFormDataPart("math_type", "balance")
 
@@ -82,7 +90,7 @@ class MyOrdersListFragment : Fragment() {
                     timer.cancel()
                     timer= Timer()
                     timer.schedule(timerTask {
-                        viewModel.addProduct(builder.build())
+                        viewModel.updateQuantity(item.itemId.toString(),builder.build())
 
                     }
 

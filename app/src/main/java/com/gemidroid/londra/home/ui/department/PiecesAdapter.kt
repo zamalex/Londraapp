@@ -37,11 +37,20 @@ class PiecesAdapter(
 
         holder.itemView.apply {
 
+            if (prolist[position].in_favourite==1){
+                img_add_to_fav.setImageResource(R.drawable.ic_favorite)
+
+            }else
+                img_add_to_fav.setImageResource(R.drawable.ic_un_favorite)
+
+
+
+
             txt_piece_name.text = prolist[position].name
             txt_piece_price.text = "${prolist[position].price.toString()} ريال "
 
             img_add_to_fav.setOnClickListener {
-                onLikedClick.invoke(it as ImageView,position)
+                onLikedClick.invoke(it as ImageView,prolist[position].id)
             }
             setOnClickListener {
                 onPieceClick.invoke(position)
