@@ -121,7 +121,7 @@ interface ApiService {
     @POST("carts/{cart}/user/{user}/update")
     fun updateCart(@Path("cart") cart: String, @Path("user") user: String): Single<AddProductRes>
 
-    @POST("carts/{cart_id}/products/{product_id}/remove")
+    @POST("carts/{cart_id}/items/{product_id}/remove")
     fun removeItem(
         @Path("cart_id") cart: String,
         @Path("product_id") product: String

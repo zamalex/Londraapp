@@ -99,7 +99,7 @@ class MyOrdersListFragment : Fragment() {
 
                 }, { deletedItem ->
                     (activity as HomeActivity).loading?.show()
-                    viewModel.removeProduct(cart!!,deletedItem.productId.toString())
+                    viewModel.removeProduct(cart!!,deletedItem.itemId.toString())
 
                 }).also { it.setData(r.data.items) }
             }
