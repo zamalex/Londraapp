@@ -21,6 +21,7 @@ data class AddAddressResponse(
         @SerializedName("longitude")
         var longitude: String = "",
         @SerializedName("phone")
-        var phone: String = ""
+        var phone: String = "",
+        var isChecked: Boolean = false
     )
 }

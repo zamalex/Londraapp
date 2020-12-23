@@ -66,42 +66,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioGroup
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/grp_addresses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin10"
-                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_cart_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_charge_title">
 
-                <RadioButton
-                    android:id="@+id/rd_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edt_shape_grey"
-                    android:checked="true"
-                    android:layout_margin="@dimen/margin10"
-                    android:button="@null"
-                    android:padding="@dimen/margin10"
-                    android:drawablePadding="@dimen/margin10"
-                   android:drawableEnd="@drawable/radio_selector"
-                    android:text="المنزل\n هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى" />
 
-
-                <RadioButton
-                    android:id="@+id/rd_work"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin10"
-                    android:background="@drawable/edt_shape_grey"
-                    android:button="@null"
-                    android:padding="@dimen/margin10"
-                    android:drawableEnd="@drawable/radio_selector"
-                    android:drawablePadding="@dimen/margin10"
-                    android:text="العمل\n هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى" />
-
-            </RadioGroup>
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/separator2"
