@@ -46,6 +46,7 @@
 
         <EditText
             android:editable="false"
+            android:focusable="false"
             android:id="@+id/edt_choose_designer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

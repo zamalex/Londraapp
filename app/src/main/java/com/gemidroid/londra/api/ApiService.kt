@@ -11,6 +11,7 @@ import com.gemidroid.londra.home.ui.main.model.CatRes
 import com.gemidroid.londra.home.ui.main.model.SliderRes
 import com.gemidroid.londra.home.ui.profile.ProfileRes
 import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
+import com.gemidroid.londra.home.ui.specialorder.DesignersRes
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Single
@@ -127,7 +128,27 @@ interface ApiService {
         @Path("product_id") product: String
     ): Single<AddProductRes>
 
+    //special order
 
+
+    @GET("orders/designers")
+    fun getDesigners(): Single<DesignersRes>
+
+
+    @POST("orders/request-special-order")
+    fun requestSpecialOrder(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
+
+//payment
+
+
+    @POST("orders/check-coupon")
+    fun checkCoupon(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
     //address
 
     @POST("auth/addresses/create")
