@@ -53,13 +53,14 @@ class SpecialOrderFragment : Fragment() {
                 viewModel.requestSpecialOrder(
                     "Bearer ${loginRes.data.accessToken}",
                     JsonObject().apply {
-                        addProperty("designer_id", "")
-                        addProperty("height", "")
-                        addProperty("chest", "")
-                        addProperty("waist", "")
-                        addProperty("hips", "")
-                        addProperty("arm_length", "")
-                        addProperty("arm_width", "")
+                        addProperty("designer_id", designerId.toString())
+                        addProperty("height", "${edt_length.text}")
+                        addProperty("chest", "${edt_binch.text}")
+                        addProperty("waist", "${edt_twist.text}")
+                        addProperty("hips", "0")
+                        addProperty("arm_length", "${edt_arm_length.text}")
+                        addProperty("arm_width", "${edt_arm_width.text}")
+                        addProperty("design_note", "${edt_design_idea.text}")
                     })
             }
         }
