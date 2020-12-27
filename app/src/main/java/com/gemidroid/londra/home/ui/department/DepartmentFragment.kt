@@ -13,11 +13,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
 import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
+import com.gemidroid.londra.utils.EndlessRecyclerViewScrollListener
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_department.*
@@ -25,7 +27,7 @@ import retrofit2.HttpException
 import java.net.UnknownHostException
 
 class DepartmentFragment : Fragment() {
-
+    var page:Int = 1
     var cat: Int? = null
     private val TAG = "DepartmentFragment"
     private var isFavourite = false
@@ -63,6 +65,8 @@ class DepartmentFragment : Fragment() {
 
         viewModel.getCatProducts(1, cat)
 
+
+
         setResponse()
         setError()
 
@@ -79,6 +83,7 @@ class DepartmentFragment : Fragment() {
 
         if (it != null && it.success) {
             rec_pieces.apply {
+
                 layoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
                 adapter = PiecesAdapter({
@@ -101,7 +106,19 @@ class DepartmentFragment : Fragment() {
                         JsonObject().apply { addProperty("product_id", id.toString()) })
                 }).apply { setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
 
+                addOnScrollListener(object : EndlessRecyclerViewScrollListener() {
+                    override fun getLayoutManager(): RecyclerView.LayoutManager {
+                        return rec_pieces.layoutManager!!
 
+                    }
+
+                    override fun onLoadMore() {
+                        if (page >= 1) {
+                            page++
+                            viewModel.getCatProducts(page, cat)
+                        }
+                    }
+                })
             }
 
         }

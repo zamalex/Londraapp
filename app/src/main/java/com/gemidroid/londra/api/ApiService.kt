@@ -9,6 +9,7 @@ import com.gemidroid.londra.home.ui.design.AttributeRes
 import com.gemidroid.londra.home.ui.notifications.NotificationRes
 import com.gemidroid.londra.home.ui.main.model.CatRes
 import com.gemidroid.londra.home.ui.main.model.SliderRes
+import com.gemidroid.londra.home.ui.myorders.PrevOrdersRes
 import com.gemidroid.londra.home.ui.profile.ProfileRes
 import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.home.ui.specialorder.DesignersRes
@@ -141,6 +142,12 @@ interface ApiService {
         @Body body: JsonObject
     ): Single<ResponseBody>
 
+    //previous orders
+    @GET("orders")
+    fun getPreviousOrders(
+        @Header("Authorization") token: String
+    ): Single<PrevOrdersRes>
+
 //payment
 
 
@@ -179,6 +186,13 @@ interface ApiService {
 
     @POST("auth/favourite")
     fun addRemoveFavs(
+        @Header("Authorization") token: String,
+        @Body body: JsonObject
+    ): Single<ResponseBody>
+    //create order
+
+    @POST("orders/create")
+    fun createOrder(
         @Header("Authorization") token: String,
         @Body body: JsonObject
     ): Single<ResponseBody>

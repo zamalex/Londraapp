@@ -68,7 +68,15 @@ class OrdersViewModel : ViewModel() {
     // val addProductResponse = MutableLiveData<AddProductRes>()
     // val addProductError = MutableLiveData<Throwable>()
 
+    fun getPrevOrders(token:String){
+        Retrofit.Api.getPreviousOrders(token).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                prevResponse.postValue(t1)
+                cartError.postValue(t2)
+            }
+    }
 
+    val prevResponse = MutableLiveData<PrevOrdersRes>()
     val cartResponse = MutableLiveData<AddProductRes>()
     val cartError = MutableLiveData<Throwable>()
 }

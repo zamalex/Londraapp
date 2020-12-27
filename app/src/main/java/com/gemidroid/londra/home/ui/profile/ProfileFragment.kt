@@ -79,7 +79,7 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             "fleetcart_session=${Retrofit.cookieJar.cookies[0].value}"
         )
 
-        Retrofit.cookieJar.cookies.forEach { c -> Log.e("cook", "${c.name} ${c.value}") }
+       // Retrofit.cookieJar.cookies.forEach { c -> Log.e("cook", "${c.name} ${c.value}") }
 
         proViewModel.listFavs(
             "Bearer ${loginRes.data.accessToken}"

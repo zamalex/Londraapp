@@ -36,6 +36,7 @@ class PaymentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as PaymentActivity).loading!!.show()
         profileViewModel.getAddresses("Bearer ${loginRes.data.accessToken}")
 
 
@@ -44,11 +45,13 @@ class PaymentFragment : Fragment() {
                 edt_code.error = "required"
                 return@setOnClickListener
             }
-
+            (activity as PaymentActivity).loading!!.show()
             viewModel.checkCoupon("Bearer ${loginRes.data.accessToken}", JsonObject().apply { addProperty("coupon",edt_code.text.toString()) })
         }
 
         profileViewModel.getAddressResponse.observe(viewLifecycleOwner, Observer {
+            (activity as PaymentActivity).loading!!.dismiss()
+
             if (it != null && it.success) {
                 grp_addresses.apply {
                     adapter =
@@ -58,6 +61,7 @@ class PaymentFragment : Fragment() {
         })
 
         viewModel.errorResponse.observe(viewLifecycleOwner, Observer {
+            (activity as PaymentActivity).loading!!.dismiss()
 
             if (it != null) {
                 if (it is UnknownHostException)

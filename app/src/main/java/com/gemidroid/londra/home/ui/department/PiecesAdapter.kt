@@ -20,7 +20,7 @@ class PiecesAdapter(
     var prolist: ArrayList<CatProducstRes.Data.Data> = ArrayList()
 
     fun setList(mlist: ArrayList<CatProducstRes.Data.Data>) {
-        prolist = mlist
+        prolist.addAll(mlist)
         notifyDataSetChanged()
 
     }

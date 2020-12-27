@@ -16,6 +16,20 @@ class PaymentViewModel : ViewModel() {
             }
     }
 
+    fun createOrder(token:String,jsonObject: JsonObject){
+        Retrofit.Api.createOrder(token,jsonObject).subscribeOn(Schedulers.io())
+            .subscribe { t1, t2 ->
+                createOrderResponse.postValue(t1)
+                createOrderError.postValue(t2)
+            }
+    }
+
+
+
     var couponResponse = MutableLiveData<ResponseBody>()
     var errorResponse = MutableLiveData<Throwable>()
+
+
+    var createOrderResponse = MutableLiveData<ResponseBody>()
+    var createOrderError = MutableLiveData<Throwable>()
 }
