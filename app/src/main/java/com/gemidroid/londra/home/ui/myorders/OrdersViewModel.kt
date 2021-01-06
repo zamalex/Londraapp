@@ -19,7 +19,7 @@ class OrdersViewModel : ViewModel() {
                     listCart(t1.data.cartId.toString())
                 } else {
                     cartResponse.postValue(t1)
-                    cartError.postValue(t2)
+                   // cartError.postValue(t2)
 
                 }
             }

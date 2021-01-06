@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.login.ui.model.LoginRes
+import com.google.gson.Gson
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import retrofit2.HttpException
@@ -47,13 +49,22 @@ class NotificationFragment : Fragment() {
         })
         notificationsViewModel.notificationsError.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                Log.e("error", "setAddError: ", it)
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                    var successResponse = Gson().fromJson(
+                        it.response()!!.errorBody()!!.string(),
+                        SuccessResponse::class.java
+                    )
+                    if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                        Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                            .show()
+                    else
 
-                    Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                        .show()
+
+                        Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                            .show()
                 } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }

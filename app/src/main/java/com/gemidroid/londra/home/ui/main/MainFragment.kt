@@ -2,6 +2,7 @@ package com.gemidroid.londra.home.ui.main
 
 import SliderAdapter
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.home.data.main.SliderItem
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.department.DepartmentActivity
 import com.gemidroid.londra.home.ui.main.model.CatRes
 import com.gemidroid.londra.home.ui.specialorder.SpecialOrderActivity
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -41,15 +45,17 @@ class MainFragment : Fragment() {
 
 
 
+
+
         (activity as HomeActivity).loading!!.show()
         viewModel.getCats()
         viewModel.getSlider()
 
         viewModel.catsResponse.observe(viewLifecycleOwner, Observer {
             (activity as HomeActivity).loading!!.dismiss()
-            if (it!=null&&it.success){
+            if (it != null && it.success) {
                 rec_orders.apply {
-                    adapter = DepartmentsAdapter {id,name,count->
+                    adapter = DepartmentsAdapter { id, name, count ->
                         val intent = Intent(requireActivity(), DepartmentActivity::class.java)
                         intent.putExtra("departmentId", id)
                         intent.putExtra("departmentName", name)
@@ -67,19 +73,37 @@ class MainFragment : Fragment() {
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
-                    Log.e("eeee",it.response()!!.errorBody()!!.string())
+                    try {
+                        var successResponse = Gson().fromJson(
+                            it.response()!!.errorBody()!!.string(),
+                            SuccessResponse::class.java
+                        )
+                        if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                            Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                                .show()
+                        else
 
-                    Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                        .show()
-                }else
+
+                            Toast.makeText(
+                                activity,
+                                it.response()!!.message().toString(),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                    } catch (e: JsonSyntaxException) {
+                        Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+                    }
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }
         })
 
         viewModel.sliderResponse.observe(viewLifecycleOwner, Observer {
             (activity as HomeActivity).loading!!.dismiss()
-            if (it!=null&&it.success){
-                if (!it.data.isNullOrEmpty()){
+            if (it != null && it.success) {
+                if (!it.data.isNullOrEmpty()) {
                     slideShow(it.data)
 
                 }
@@ -93,11 +117,29 @@ class MainFragment : Fragment() {
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
-                    Log.e("eeee",it.response()!!.errorBody()!!.string())
+                    try {
+                        var successResponse = Gson().fromJson(
+                            it.response()!!.errorBody()!!.string(),
+                            SuccessResponse::class.java
+                        )
+                        if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                            Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                                .show()
+                        else
 
-                    Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                        .show()
-                }else
+
+                            Toast.makeText(
+                                activity,
+                                it.response()!!.message().toString(),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                    } catch (e: JsonSyntaxException) {
+                        Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
+                    }
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+
+                } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }
         })
@@ -107,9 +149,10 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun slideShow(list:List<String>) {
+    private fun slideShow(list: List<String>) {
         sliderView.setSliderAdapter(
-            SliderAdapter(list))
+            SliderAdapter(list)
+        )
 
         sliderView.startAutoCycle()
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM)

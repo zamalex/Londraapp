@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.department.model.CatProducstRes
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.favourites_item.view.*
 
-class MyFavouritesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyFavouritesAdapter(val onFav:(Int)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var mlst = ArrayList<CatProducstRes.Data.Data>()
     fun setList(array:ArrayList<CatProducstRes.Data.Data>){
@@ -35,6 +36,15 @@ class MyFavouritesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             }else
                 add_to_fav.setImageResource(R.drawable.ic_un_favorite)
+
+            if (!item.thumbnail.isNullOrEmpty()){
+                Picasso.get().load(item.thumbnail).into(img_my_favourites)
+            }
+
+            add_to_fav.setOnClickListener { onFav.invoke(item.id)
+                mlst.removeAt(position)
+                notifyDataSetChanged()
+            }
 
         }
 

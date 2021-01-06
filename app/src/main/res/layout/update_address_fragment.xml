@@ -37,9 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/edt_shape"
-
+                android:hint="النوع"
                 android:padding="@dimen/margin10"
-                android:text="المنزل"
                 app:layout_constraintEnd_toEndOf="@id/txt_address_desc_title"
                 app:layout_constraintStart_toStartOf="@id/txt_address_desc_title"
                 app:layout_constraintTop_toBottomOf="@id/txt_address_desc_title" />
@@ -52,7 +51,7 @@
                 android:background="@drawable/edt_shape"
                 android:gravity="top|start"
                 android:padding="@dimen/margin10"
-                android:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى"
+                android:hint="العنوان"
                 android:textColor="@color/colorBlack"
                 app:layout_constraintEnd_toEndOf="@id/txt_address_desc_title"
                 app:layout_constraintHeight_percent=".4"
@@ -114,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin20"
                 android:background="@drawable/btn_shape"
-                android:text="تعديل"
+                android:text="تم"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/font18"
                 app:layout_constraintBottom_toBottomOf="parent" />

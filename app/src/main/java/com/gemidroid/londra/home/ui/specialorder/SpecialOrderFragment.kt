@@ -1,5 +1,6 @@
 package com.gemidroid.londra.home.ui.specialorder
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.home.ui.department.DepartmentActivity
+import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_design.*
@@ -38,6 +42,14 @@ class SpecialOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!loginRes.success) {
+            Toast.makeText(requireActivity(),"سجل الدخول اولا",Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            requireActivity().finishAffinity()
+            return
+        }
+
 
         (activity as SpecialOrderActivity).loading?.show()
         viewModel.getDesigners()
@@ -104,14 +116,19 @@ class SpecialOrderFragment : Fragment() {
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
-                    Log.e("eeee", it.response()!!.errorBody()!!.string())
-
-                    Toast.makeText(
-                        activity,
-                        it.response()!!.message().toString(),
-                        Toast.LENGTH_SHORT
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                    var successResponse = Gson().fromJson(
+                        it.response()!!.errorBody()!!.string(),
+                        SuccessResponse::class.java
                     )
-                        .show()
+                    if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                        Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                            .show()
+                    else
+
+
+                        Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                            .show()
                 } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }

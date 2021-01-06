@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.home.ui.specialorder.SpecialOrderActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
+import com.google.gson.Gson
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_my_orders_list.*
 import kotlinx.android.synthetic.main.fragment_my_orders_list.rec_orders_list
@@ -55,14 +57,19 @@ class MyPrevOrdersListFragment : Fragment() {
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
-                    Log.e("eeee", it.response()!!.errorBody()!!.string())
-
-                    Toast.makeText(
-                        activity,
-                        it.response()!!.message().toString(),
-                        Toast.LENGTH_SHORT
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                    var successResponse = Gson().fromJson(
+                        it.response()!!.errorBody()!!.string(),
+                        SuccessResponse::class.java
                     )
-                        .show()
+                    if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                        Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                            .show()
+                    else
+
+
+                        Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
+                            .show()
                 } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }

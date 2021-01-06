@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin30"
         android:layout_marginEnd="@dimen/margin15"
-        android:text="اللون:رمادي"
+        android:text=""
         android:textColor="@color/colorGrey"
         android:textSize="@dimen/font20"
         app:layout_constraintEnd_toStartOf="@+id/img_my_favourites"

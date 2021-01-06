@@ -2,6 +2,7 @@ package com.gemidroid.londra.home.ui.design
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gemidroid.londra.api.SuccessResponse
 import com.google.gson.JsonObject
 import creativitysol.com.planstech.api.Retrofit
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -13,11 +14,11 @@ class DesignViewModel: ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe { t1, t2 ->
                 hairResponse.postValue(t1)
-                errorResponse.postValue(t2)
+               // errorResponse.postValue(t2)
                 Retrofit.Api.getAppearanceAttributes(token,"skin_colour").subscribeOn(Schedulers.io())
                     .subscribe { t1, t2 ->
                         skinResponse.postValue(t1)
-                        errorResponse.postValue(t2)
+                        //errorResponse.postValue(t2)
                         Retrofit.Api.getAppearanceAttributes(token,"body_type").subscribeOn(Schedulers.io())
                             .subscribe { t1, t2 ->
                                 bodyResponse.postValue(t1)
@@ -43,7 +44,7 @@ class DesignViewModel: ViewModel() {
 
 
 
-    val sendResponse = MutableLiveData<ResponseBody>()
+    val sendResponse = MutableLiveData<SuccessResponse>()
     val hairResponse = MutableLiveData<AttributeRes>()
     val bodyResponse = MutableLiveData<AttributeRes>()
     val skinResponse = MutableLiveData<AttributeRes>()

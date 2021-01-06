@@ -5,26 +5,23 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
     <application
         android:name=".AppClass"
         android:allowBackup="true"
-        android:icon="@mipmap/launcher"
+        android:icon="@drawable/icon"
+        android:roundIcon="@drawable/icon"
         android:label="@string/app_name"
-        android:supportsRtl="false"
         android:networkSecurityConfig="@xml/network_config"
-
+        android:supportsRtl="false"
         android:theme="@style/NoToolBarTheme"
         tools:replace="android:supportsRtl">
-
         <activity
             android:name=".home.ui.specialorder.SpecialOrderActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".splash.ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,39 +29,47 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".login.ui.LoginActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".forgotpassword.ui.ForgetPasswordActivity"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".home.ui.HomeActivity"
             android:label="@string/title_activity_home"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
 
+        </activity>
         <activity android:name=".home.ui.notifications.NotificationsActivity" />
-
         <activity
             android:name=".home.ui.payment.PaymentActivity"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".home.ui.address.AddAddressActivity"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".home.ui.address.UpdateAddressActivity"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".home.ui.department.DepartmentActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
 
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="londra.app"
+                    android:pathPrefix="/pro"
+                    android:scheme="https" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

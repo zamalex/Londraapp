@@ -26,7 +26,7 @@ class AppClass : Application() {
         val email = Paper.book().read("email", "")
         val password = Paper.book().read("password", "")
 
-      /*  if (!email.isNullOrEmpty())
+        if (!email.isNullOrEmpty())
             Retrofit.Api.login(JsonObject().apply {
                 addProperty("email", email)
                 addProperty("password", password)
@@ -36,7 +36,7 @@ class AppClass : Application() {
                 }
 
             }
-*/
+
 
     }
 

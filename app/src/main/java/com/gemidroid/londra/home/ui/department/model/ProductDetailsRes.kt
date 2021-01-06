@@ -26,6 +26,8 @@ data class ProductDetailsRes(
         var hasOffer: Boolean = false,
         @SerializedName("id")
         var id: Int = 0,
+        @SerializedName("can_custom_sizes")
+        var can_custom_sizes: Int = 0,
         @SerializedName("images")
         var images: List<String> = listOf(),
         @SerializedName("material")
@@ -33,11 +35,11 @@ data class ProductDetailsRes(
         @SerializedName("name")
         var name: String = "",
         @SerializedName("price")
-        var price: Int = 0,
+        var price: Float = 0f,
         @SerializedName("reviews")
         var reviews: List<Review> = listOf(),
         @SerializedName("selling_price")
-        var sellingPrice: Int = 0,
+        var sellingPrice: Float = 0f,
         @SerializedName("sizes")
         var sizes: Size = Size(),
         @SerializedName("thumbnail")
@@ -71,7 +73,7 @@ data class ProductDetailsRes(
                 @SerializedName("label")
                 var label: String = "",
                 @SerializedName("price")
-                var price: Int = 0
+                var price: Float = 0f
             )
         }
 
@@ -115,7 +117,7 @@ data class ProductDetailsRes(
                 @SerializedName("label")
                 var label: String = "",
                 @SerializedName("price")
-                var price: Int = 0
+                var price: Float = 0f
             )
         }
 
@@ -145,7 +147,7 @@ data class ProductDetailsRes(
                 @SerializedName("label")
                 var label: String = "",
                 @SerializedName("price")
-                var price: Int = 0
+                var price: Float = 0f
             )
         }
     }

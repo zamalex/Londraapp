@@ -7,7 +7,7 @@ import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import kotlinx.android.synthetic.main.item_cart_address.view.*
 
-class CartAddressAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CartAddressAdapter(val selectAddress:(id:Int)->Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var mList = ArrayList<AddAddressResponse.Data>()
 
@@ -33,12 +33,13 @@ class CartAddressAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val item = mList[position]
 
         holder.itemView.apply {
-            rd_home.setText(StringBuffer().append("المنزل").append("\n").append(item.address))
+            rd_home.setText(StringBuffer().append(item.title).append("\n").append(item.address))
             rd_home.isChecked = item.isChecked
             rd_home.setOnClickListener {
                 mList.forEach { i-> i.isChecked = false }
                 mList[position].isChecked = true
                 notifyDataSetChanged()
+                selectAddress.invoke(item.id)
             }
         }
     }

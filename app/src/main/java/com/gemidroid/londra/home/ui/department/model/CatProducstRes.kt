@@ -61,11 +61,11 @@ data class CatProducstRes(
             @SerializedName("name")
             var name: String = "",
             @SerializedName("price")
-            var price: Int = 0,
+            var price: Float = 0f,
             @SerializedName("reviews")
             var reviews: List<Review> = listOf(),
             @SerializedName("selling_price")
-            var sellingPrice: Int = 0,
+            var sellingPrice: Float = 0f,
             @SerializedName("sizes")
             var sizes: Sizes = Sizes(),
             @SerializedName("thumbnail")
@@ -97,7 +97,7 @@ data class CatProducstRes(
                     @SerializedName("label")
                     var label: String = "",
                     @SerializedName("price")
-                    var price: Int = 0
+                    var price: Float = 0f
                 )
             }
 
@@ -125,7 +125,7 @@ data class CatProducstRes(
                     @SerializedName("label")
                     var label: String = "",
                     @SerializedName("price")
-                    var price: Int = 0
+                    var price: Float = 0f
                 )
             }
 
@@ -166,7 +166,7 @@ data class CatProducstRes(
                     @SerializedName("label")
                     var label: String = "",
                     @SerializedName("price")
-                    var price: Int = 0
+                    var price: Float = 0f
                 )
             }
         }

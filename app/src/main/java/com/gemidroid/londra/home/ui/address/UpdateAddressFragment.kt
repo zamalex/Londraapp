@@ -51,6 +51,16 @@ class UpdateAddressFragment : Fragment() {
 
         btn_edit_address.setOnClickListener {
 
+            if (edt_address_name.text.isNullOrEmpty()){
+                edt_address_name.error = "required"
+                return@setOnClickListener
+            }
+
+
+            if (edt_address_details.text.isNullOrEmpty()){
+                edt_address_details.error = "required"
+                return@setOnClickListener
+            }
 
             (activity as UpdateAddressActivity).loading!!.show()
             if (addressId == 0) {
@@ -61,7 +71,8 @@ class UpdateAddressFragment : Fragment() {
                             "address",
                             edt_address_details.text.toString()
                         )
-                        addProperty("type", "house")
+                        addProperty("type", edt_address_name.text.toString())
+                        addProperty("title", edt_address_name.text.toString())
                     })
             } else {
                 viewModel.updateAddress(
@@ -72,7 +83,8 @@ class UpdateAddressFragment : Fragment() {
                             "address",
                             edt_address_details.text.toString()
                         )
-                        addProperty("type", "house")
+                        addProperty("type", edt_address_name.text.toString())
+                        addProperty("title", edt_address_name.text.toString())
 
                     })
             }

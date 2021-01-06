@@ -30,7 +30,7 @@ class MyAddressesAdapter(
         holder.itemView.apply {
             img_address_dot.text = (position+1).toString()
             txt_notification_date.text = addressesList[position].address
-
+            txt_address_title.text = addressesList[position].title
             img_address_edit.setOnClickListener {
                 onEditClick.invoke(addressesList[position].id)
             }

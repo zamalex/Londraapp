@@ -19,9 +19,13 @@ data class AddProductRes(
         @SerializedName("items")
         var items: List<Item> = listOf(),
         @SerializedName("price")
-        var price: Int = 0,
+        var price: Float = 0f,
         @SerializedName("selling_price")
-        var sellingPrice: Int = 0,
+        var sellingPrice: Float = 0f,
+        @SerializedName("shipping_price")
+        var shipping_price: Float = 0f,
+        @SerializedName("total_price")
+        var total_price: Float = 0f,
         @SerializedName("user_id")
         var userId: Int = 0
     ) {
@@ -41,7 +45,7 @@ data class AddProductRes(
             @SerializedName("name")
             var name: String = "",
             @SerializedName("price")
-            var price: Int = 0,
+            var price: Float = 0f,
             @SerializedName("product_id")
             var productId: Int = 0,
             @SerializedName("quantity")
@@ -53,11 +57,30 @@ data class AddProductRes(
             @SerializedName("selected_size")
             var selectedSize: String = "",
             @SerializedName("selling_price")
-            var sellingPrice: Int = 0,
+            var sellingPrice: Float = 0f,
+            @SerializedName("shipping_price")
+            var shipping_price: Float = 0f,
+            @SerializedName("total_price")
+            var total_price: Float = 0f,
             @SerializedName("thumbnail")
             var thumbnail: String = "",
             @SerializedName("user_size")
-            var userSize: Any = Any()
-        )
+            var userSize: UserSize = UserSize()
+        ){
+            data class UserSize(
+                @SerializedName("arm_length")
+                var armLength: Int = 0,
+                @SerializedName("arm_width")
+                var armWidth: Int = 0,
+                @SerializedName("chest")
+                var chest: Int = 0,
+                @SerializedName("height")
+                var height: Int = 0,
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("waist")
+                var waist: Int = 0
+            )
+        }
     }
 }

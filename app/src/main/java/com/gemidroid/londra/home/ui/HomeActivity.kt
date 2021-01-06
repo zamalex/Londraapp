@@ -1,12 +1,12 @@
 package com.gemidroid.londra.home.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.gemidroid.f3aleity.utils.Loading
 import com.gemidroid.londra.R
 import com.gemidroid.londra.home.ui.notifications.NotificationsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,5 +39,7 @@ class HomeActivity : AppCompatActivity() {
         img_notifications.setOnClickListener {
             startActivity(Intent(this, NotificationsActivity::class.java))
         }
+
+
     }
 }

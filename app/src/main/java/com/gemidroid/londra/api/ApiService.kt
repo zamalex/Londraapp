@@ -1,5 +1,6 @@
 package creativitysol.com.planstech.api
 
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.forgotpassword.ui.model.CheckRes
 import com.gemidroid.londra.forgotpassword.ui.model.SendCodeRes
 import com.gemidroid.londra.home.ui.department.model.AddProductRes
@@ -10,6 +11,7 @@ import com.gemidroid.londra.home.ui.notifications.NotificationRes
 import com.gemidroid.londra.home.ui.main.model.CatRes
 import com.gemidroid.londra.home.ui.main.model.SliderRes
 import com.gemidroid.londra.home.ui.myorders.PrevOrdersRes
+import com.gemidroid.londra.home.ui.payment.CouponResponse
 import com.gemidroid.londra.home.ui.profile.ProfileRes
 import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.home.ui.specialorder.DesignersRes
@@ -99,7 +101,7 @@ interface ApiService {
     fun sendAppearance(
         @Header("Authorization") token: String,
         @Body body: JsonObject
-    ): Single<ResponseBody>
+    ): Single<SuccessResponse>
 
 
     @POST("auth/send-reset-email-link")
@@ -155,7 +157,7 @@ interface ApiService {
     fun checkCoupon(
         @Header("Authorization") token: String,
         @Body body: JsonObject
-    ): Single<ResponseBody>
+    ): Single<CouponResponse>
     //address
 
     @POST("auth/addresses/create")

@@ -53,7 +53,7 @@ class PiecesAdapter(
                 onLikedClick.invoke(it as ImageView,prolist[position].id)
             }
             setOnClickListener {
-                onPieceClick.invoke(position)
+                onPieceClick.invoke(prolist[position].id)
             }
             if (!prolist[position].thumbnail.isNullOrEmpty())
                 Picasso.get().load(prolist[position].thumbnail).placeholder(R.drawable.ic_mask).error(R.drawable.ic_mask).into(img_piece)

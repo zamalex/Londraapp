@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.gemidroid.f3aleity.utils.Loading
 import com.gemidroid.londra.R
+import com.gemidroid.londra.api.SuccessResponse
 import com.gemidroid.londra.forgotpassword.ui.ForgetPasswordActivity
 import com.gemidroid.londra.home.ui.HomeActivity
 import com.gemidroid.londra.home.ui.address.UpdateAddressActivity
@@ -25,6 +26,7 @@ import com.gemidroid.londra.home.ui.profile.model.AddAddressResponse
 import com.gemidroid.londra.login.ui.LoginActivity
 import com.gemidroid.londra.login.ui.model.LoginRes
 import com.gemidroid.londra.utils.Validator
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hbisoft.pickit.PickiT
 import com.hbisoft.pickit.PickiTCallbacks
@@ -63,11 +65,19 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!loginRes.success) {
+            Toast.makeText(requireActivity(),"سجل الدخول اولا",Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            requireActivity().finishAffinity()
+            return
+        }
+
         (activity as HomeActivity).loading!!.show()
 
         pickiT = PickiT(activity, this)
@@ -76,10 +86,10 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
 
         viewModel.profile(
             "Bearer ${loginRes.data.accessToken}",
-            "fleetcart_session=${Retrofit.cookieJar.cookies[0].value}"
+            "fleetcart_session"
         )
 
-       // Retrofit.cookieJar.cookies.forEach { c -> Log.e("cook", "${c.name} ${c.value}") }
+        // Retrofit.cookieJar.cookies.forEach { c -> Log.e("cook", "${c.name} ${c.value}") }
 
         proViewModel.listFavs(
             "Bearer ${loginRes.data.accessToken}"
@@ -153,6 +163,8 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
         txt_logout.setOnClickListener {
             Paper.book().delete("login")
             Paper.book().delete("cart")
+            Paper.book().delete("email")
+            Paper.book().delete("password")
             startActivity(Intent(requireActivity(), LoginActivity::class.java))
             requireActivity().finish()
         }
@@ -162,7 +174,11 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             if (it != null && it.success) {
                 rec_my_favourites.apply {
                     adapter =
-                        MyFavouritesAdapter().also { i -> i.setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
+                        MyFavouritesAdapter { f ->
+                            proViewModel.addRemoveFavs("Bearer ${loginRes.data.accessToken}",
+                                JsonObject().apply { addProperty("product_id", f.toString()) })
+
+                        }.also { i -> i.setList(it.data.data as ArrayList<CatProducstRes.Data.Data>) }
                 }
 
             }
@@ -173,14 +189,23 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
                 if (it is UnknownHostException)
                     Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
                 else if (it is HttpException) {
-                    Log.e("eeee", it.response()!!.errorBody()!!.string())
-
-                    Toast.makeText(
-                        activity,
-                        it.response()!!.message().toString(),
-                        Toast.LENGTH_SHORT
+                    // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                    var successResponse = Gson().fromJson(
+                        it.response()!!.errorBody()!!.string(),
+                        SuccessResponse::class.java
                     )
-                        .show()
+                    if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                        Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                            .show()
+                    else
+
+
+                        Toast.makeText(
+                            activity,
+                            it.response()!!.message().toString(),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                 } else
                     Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
             }
@@ -220,15 +245,23 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
-                Log.e("eeee", it.response()!!.errorBody()!!.string())
+                // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                var successResponse = Gson().fromJson(
+                    it.response()!!.errorBody()!!.string(),
+                    SuccessResponse::class.java
+                )
+                if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                    Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+                else
 
-                //var coky = it.response()!!.headers().get("Set-Cookie")!!.split(";")[0]
-                //Log.e("coky", coky)
 
-               // Paper.book().write("coky", coky)
-
-                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                    .show()
+                    Toast.makeText(
+                        activity,
+                        it.response()!!.message().toString(),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
             } else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }
@@ -261,10 +294,23 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
-                Log.e("eeee", it.response()!!.errorBody()!!.string())
+                // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                var successResponse = Gson().fromJson(
+                    it.response()!!.errorBody()!!.string(),
+                    SuccessResponse::class.java
+                )
+                if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                    Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+                else
 
-                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                    .show()
+
+                    Toast.makeText(
+                        activity,
+                        it.response()!!.message().toString(),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
             } else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }
@@ -295,10 +341,23 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
             if (it is UnknownHostException)
                 Toast.makeText(activity, "no internet connection", Toast.LENGTH_SHORT).show()
             else if (it is HttpException) {
-                Log.e("eeee", it.response()!!.errorBody()!!.string())
+                // Log.e("eeee", it.response()!!.errorBody()!!.string())
+                var successResponse = Gson().fromJson(
+                    it.response()!!.errorBody()!!.string(),
+                    SuccessResponse::class.java
+                )
+                if (successResponse != null && !successResponse.message.isNullOrEmpty())
+                    Toast.makeText(activity, successResponse.message, Toast.LENGTH_SHORT)
+                        .show()
+                else
 
-                Toast.makeText(activity, it.response()!!.message().toString(), Toast.LENGTH_SHORT)
-                    .show()
+
+                    Toast.makeText(
+                        activity,
+                        it.response()!!.message().toString(),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
             } else
                 Toast.makeText(activity, "server response error", Toast.LENGTH_SHORT).show()
         }
@@ -404,4 +463,6 @@ class ProfileFragment : Fragment(), PickiTCallbacks {
                 }
             }).onSameThread().check()
     }
+
+
 }

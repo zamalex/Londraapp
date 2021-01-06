@@ -26,7 +26,7 @@ class PaymentViewModel : ViewModel() {
 
 
 
-    var couponResponse = MutableLiveData<ResponseBody>()
+    var couponResponse = MutableLiveData<CouponResponse>()
     var errorResponse = MutableLiveData<Throwable>()
 
 
